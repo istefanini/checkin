@@ -1,0 +1,17 @@
+.container {
+  max-width: 800px;
+  margin: 4em auto;
+  padding: 0 20px;
+}
+
+.container > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+img{
+  margin: auto;
+  height: inherit;
+  padding:5px;
+}

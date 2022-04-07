@@ -1,0 +1,32 @@
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+
+button {
+  background:  #003865;
+  color: white;
+}
+button:hover{
+  background: #e5e5e5;
+  color: #003865;
+}
+button:disabled{
+  background:  rgba(0,0,0,.04);
+  color: #f44336 !important;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-card{
+  min-width: auto;
+  max-width: 400px;
+}
+
+.subtitle {
+  font-size: 18px !important;
+}

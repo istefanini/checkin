@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-card class="my-card mt-4 mx-auto">
+    <div class="col">
+      <div class="row">
+        <mat-card-title class="text-center">LINK A ESTUDIO RIS</mat-card-title>
+        <hr>
+      </div>
+      <div class="row">
+        <mat-card-header class="justify-content-center">
+          <img mat-card-avatar src="https://portalpacientes.fleni.org.ar/validacion-receta/assets/apple-touch-icon.png" alt="Foto de perfil"/>
+          <mat-card-title class="subtitle align-text-center">{{beneficiario}}</mat-card-title>
+        </mat-card-header>
+      </div>
+      <div class="row">
+        <mat-card-content class="text-center mt-3">
+          <h2>Link generado con éxito!</h2>
+        </mat-card-content>
+      </div>
+      <div class="row">
+        <mat-card-actions class="d-flex">
+          <button class="mx-auto" mat-raised-button (click)="downloadMyFile()">Ir al estudio</button>
+        </mat-card-actions>
+      </div>
+      <div class="row">
+        <mat-card-actions class="d-flex">
+          <button class="mx-auto" mat-raised-button>Enviar por mail</button>
+        </mat-card-actions>
+      </div>
+    </div>
+  </mat-card>
+</div>

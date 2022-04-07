@@ -1,0 +1,49 @@
+<div class="container">
+  <mat-card class="my-card mt-4 mb-4 mx-auto">
+    <div class="col">
+      <div *ngIf="!loading && (httpErrorType!=1) && (httpErrorType!=2) && !(httpErrorType==0 && httpErrorMsg)">
+        <div class="row">
+          <mat-card-title class="text-center">LINK A ESTUDIO RIS</mat-card-title>
+          <hr>
+        </div>
+        <div class="row">
+          <mat-card-header class="justify-content-center">
+            <img mat-card-avatar src="https://portalpacientes.fleni.org.ar/validacion-receta/assets/apple-touch-icon.png" alt="Logo-fleni"/>
+            <mat-card-title class="subtitle align-text-center">{{paciente.beneficiario}}</mat-card-title>
+          </mat-card-header>
+        </div>
+        <div class="row">
+          <mat-card-content class="justify-content-center">
+            <form [formGroup]="startForm" (ngSubmit)="sendCode(startForm.value)" class="mx-auto align-content-center">
+              <mat-form-field class="d-block" hintLabel="Número de 6 digitos" appearance="fill">
+                <mat-label>Número de paciente</mat-label>
+                <input  matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="ej: 212718" value="{{paciente.pacienteId}}" formControlName="pacienteId">
+              </mat-form-field>
+              <mat-form-field class="d-block" hintLabel="código de 13 digitos" appearance="fill">
+                <mat-label>Número de acceso</mat-label>
+                <input  matInput type="text"  (keypress)="keyPressNumbers($event)" #accesoId maxlength="13" minlength="13" id="accesoId" placeholder="ej: 9275000624077" formControlName="accesoId">
+                <mat-hint align="end">{{accesoId.value?.length || 0}}/13</mat-hint>
+                <mat-error *ngIf="accesoId.size!=13">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+        </div>
+        <div class="row">
+          <mat-card-actions class="d-flex">
+            <button [disabled]="!startForm.valid" mat-stroked-button type="submit" class="mx-auto" (click)="sendCode(startForm.value)">Validar</button>
+          </mat-card-actions>
+        </div>
+      </div>
+      <div class="row" *ngIf="loading">
+        <div class="d-flex">
+          <mat-spinner class="mx-auto"></mat-spinner>
+        </div>
+      </div>
+      <div class="row" *ngIf="!loading && httpErrorMsg">
+        <div class="alert alert-danger text-center mx-auto">
+          <p>{{httpErrorMsg}}</p>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

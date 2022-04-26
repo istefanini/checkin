@@ -136,6 +136,7 @@ export class StartComponent implements OnInit {
     this.api.getPacienteUrl(tokenUrl).subscribe(
       (data:PacienteInterface)=>{
         this.paciente=data;
+        console.log(this.paciente);
         this.startForm.patchValue({
           pacienteId: this.paciente.pacienteId,
         });
@@ -143,7 +144,7 @@ export class StartComponent implements OnInit {
           localStorage.setItem("beneficiario",data.beneficiario);
           // if(data.urlReceta.length>0){
           //   localStorage.setItem("receta", data.urlReceta);
-          //   this.router.navigate(['validacion-receta-descargar']);
+          //   this.router.navigate(['ris-link-send-mail']);
           // }
         } else {
           this.httpErrorMsg = this.api.httpErrorMsg;
@@ -162,16 +163,16 @@ export class StartComponent implements OnInit {
     this.postPaciente.id=form.accesoId.toString();
     this.postPaciente={
       "app": "RIS",
-      "id": form.accesoId.toString(),
-      "pacienteId": form.pacienteId.toString()
-    }
+      "id": "9275000624077",
+      "pacienteId": "212817"
+      }
     console.log(this.postPaciente);
     this.api.sendCode(this.postPaciente).subscribe(
       (data:ResponseInterface) =>{
       if(data){
         console.log(data);
         localStorage.setItem("receta",data.urlStudy);
-        this.router.navigate(['validacion-receta-descargar']);
+        this.router.navigate(['ris-link-send-mail']);
       } else {
         // this.httpErrorMsg = data.msg;
         // this.httpErrorType=data.status;
@@ -195,5 +196,10 @@ export class StartComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  searchPatient() {
+    console.log("buscando paciente "+ this.pacienteId.value);
+    this.getPacienteUrl(this.pacienteId.value);
   }
 }

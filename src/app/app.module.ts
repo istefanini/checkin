@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MultiselectAutocompleteComponent } from './plantillas/multiselect-autocomplete/multiselect-autocomplete.component';
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { MultiselectAutocompleteComponent } from './plantillas/multiselect-autoc
     HeaderComponent,
     FooterComponent,
     MultiselectAutocompleteComponent,
-    routingComponents
+    routingComponents,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +44,8 @@ import { MultiselectAutocompleteComponent } from './plantillas/multiselect-autoc
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    NgMatSearchBarModule
   ],
   providers: [
     {

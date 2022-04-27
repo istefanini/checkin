@@ -9,20 +9,24 @@
         <div class="row">
           <mat-card-header class="justify-content-center">
             <img mat-card-avatar src="../../../assets/apple-touch-icon.png" alt="Logo-fleni"/>
-            <mat-card-title class="subtitle align-text-center">{{paciente.beneficiario}}</mat-card-title>
+            <mat-card-title class="subtitle align-text-center">{{this.paciente.apyNom}}</mat-card-title>
           </mat-card-header>
         </div>
         <div class="row">
           <mat-card-content class="justify-content-center">
             <form [formGroup]="startForm" (ngSubmit)="sendCode(startForm.value)" class="mx-auto align-content-center">
               <mat-form-field class="d-block" appearance="fill">
-                <mat-label>Número de paciente</mat-label>
-                <input formControlName="value" matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="ej: 212718" value="{{paciente.pacienteId}}" formControlName="pacienteId">
+                <input formControlName="pacienteId" matPrefix matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="Número de paciente">
+                <mat-icon (click)="getPacienteUrl(pacienteId.value)" class="search-icon">search</mat-icon>
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option>
+                    {{ options[0] }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
               <mat-form-field class="d-block" hintLabel="código de 13 digitos" appearance="fill">
                 <mat-label>Número de acceso</mat-label>
-                <input  matInput type="text"  (keypress)="keyPressNumbers($event)" #accesoId maxlength="13" minlength="13" id="accesoId" placeholder="ej: 9275000624077" formControlName="accesoId">
-                <!-- <mat-hint align="end">{{accesoId.value?.length || 0}}/13</mat-hint> -->
+                <input formControlName="accesoId" matInput type="text"  (keypress)="keyPressNumbers($event)" #accesoId maxlength="13" minlength="13" id="accesoId" placeholder="ej: 9275000624077">
                 <mat-error *ngIf="accesoId.size!=13">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </form>

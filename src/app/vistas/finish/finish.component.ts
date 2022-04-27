@@ -16,7 +16,7 @@ export class FinishComponent implements OnInit {
   }
 
   loading:boolean=false;
-  linkReceta:any=localStorage.getItem('receta');
+  linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
   postMail: SendMailInterface = {
     "pacienteId": "",
@@ -29,8 +29,8 @@ export class FinishComponent implements OnInit {
   downloadMyFile(){
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
-    link.setAttribute('href', this.linkReceta);
-    // link.setAttribute('download', `receta.pdf`);
+    link.setAttribute('href', this.linkEstudios);
+    // link.setAttribute('download', `estudios.pdf`);
     document.body.appendChild(link);
     link.click();
     link.remove();

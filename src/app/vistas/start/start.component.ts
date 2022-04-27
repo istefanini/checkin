@@ -15,6 +15,8 @@ import {ActivatedRoute} from "@angular/router";
 
 export class StartComponent implements OnInit {
 
+  control: FormControl = new FormControl('');
+
   paciente: PacienteInterface = {
     pacienteId: 0,
     nombres: "",
@@ -117,37 +119,27 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe( params =>{
-      this.token = "212817";
-      if(this.token){
-        this.getPacienteUrl(this.token);
-      } else{
-        this.getPacienteUrl('');
-      }
-    }, error => {
-      this.httpErrorMsg="Error en la url";
-      this.httpErrorType=1;
-      console.log(this.httpErrorMsg);
-    })
   }
 
   getPacienteUrl(tokenUrl: string){
+    console.log("buscando paciente "+ tokenUrl);
     this.loading=true;
     this.api.getPacienteUrl(tokenUrl).subscribe(
       (data:PacienteInterface)=>{
         this.paciente=data;
-        console.log(this.paciente);
-        this.startForm.patchValue({
-          pacienteId: this.paciente.pacienteId,
-        });
+        // this.startForm.patchValue({
+        //   pacienteId: this.paciente.pacienteId,
+        // });
         if(this.paciente && (this.httpErrorMsg!=402)){
-          localStorage.setItem("beneficiario",data.beneficiario);
-          // if(data.urlReceta.length>0){
-          //   localStorage.setItem("receta", data.urlReceta);
+          this.options[0]=this.paciente.apyNom;
+          console.log(this.options);
+          // if(data.urlEstudios.length>0){
+          //   localStorage.setItem("estudios", data.urlEstudios);
           //   this.router.navigate(['ris-link-send-mail']);
           // }
         } else {
           this.httpErrorMsg = this.api.httpErrorMsg;
+          this.options[0]="No hay pacientes con ese Id";
         }
         this.loading=false;
       }, error => {
@@ -161,21 +153,17 @@ export class StartComponent implements OnInit {
     this.postPaciente.app='RIS';
     this.postPaciente.pacienteId=form.pacienteId.toString();
     this.postPaciente.id=form.accesoId.toString();
-    this.postPaciente={
-      "app": "RIS",
-      "id": "9275000624077",
-      "pacienteId": "212817"
-      }
     console.log(this.postPaciente);
     this.api.sendCode(this.postPaciente).subscribe(
-      (data:ResponseInterface) =>{
+      (data:any) =>{
       if(data){
         console.log(data);
-        localStorage.setItem("receta",data.urlStudy);
+        localStorage.setItem("beneficiario",this.paciente.apyNom);
+        localStorage.setItem("estudios",data.urlStudy);
         this.router.navigate(['ris-link-send-mail']);
       } else {
-        // this.httpErrorMsg = data.msg;
-        // this.httpErrorType=data.status;
+        this.httpErrorMsg = data.msg;
+        this.httpErrorType=data.status;
       }
         this.loading=false;
     }, error =>{
@@ -198,8 +186,5 @@ export class StartComponent implements OnInit {
     }
   }
 
-  searchPatient() {
-    console.log("buscando paciente "+ this.pacienteId.value);
-    this.getPacienteUrl(this.pacienteId.value);
-  }
+  options: string[] = [];
 }

@@ -59,3 +59,16 @@ mat-form-field{
 .subtitle {
   font-size: 18px !important;
 }
+
+.mat-icon{
+  font-size: 22px !important;
+}
+
+.search-icon {
+  position: relative;
+  right: 0px;
+  top:0px;
+  width: 24px;
+  height:5px;
+  font-size: 14px;
+}

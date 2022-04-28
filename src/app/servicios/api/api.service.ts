@@ -15,7 +15,7 @@ export class ApiService {
   public httpErrorMsg: string;
   public httpErrorType: number;
   baseUrl = environment.baseUrl;
-  postUrl = "http://172.16.1.148:4010/api-middleware-link-ris/api/v1/link-studie";
+  postUrl = "http://172.16.1.243:4010/api-middleware-link-ris/api/v1/link-studie-check";
   sendMailUrl = environment.sendMailUrl;
 
   constructor( private http:HttpClient) {
@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
-    return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie", postPaciente);
+    return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
   }
 
   sendMail(sendMailInterface: SendMailInterface):Observable<any>{

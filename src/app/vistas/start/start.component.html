@@ -16,13 +16,9 @@
           <mat-card-content class="justify-content-center">
             <form [formGroup]="startForm" (ngSubmit)="sendCode(startForm.value)" class="mx-auto align-content-center">
               <mat-form-field class="d-block" appearance="fill">
-                <input formControlName="pacienteId" matPrefix matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="Número de paciente">
+                <mat-label>Número de paciente</mat-label>
+                <input class="pacienteId" formControlName="pacienteId" matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="ej: 212234">
                 <mat-icon (click)="getPacienteUrl(pacienteId.value)" class="search-icon">search</mat-icon>
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option>
-                    {{ options[0] }}
-                  </mat-option>
-                </mat-autocomplete>
               </mat-form-field>
               <mat-form-field class="d-block" hintLabel="código de 13 digitos" appearance="fill">
                 <mat-label>Número de acceso</mat-label>

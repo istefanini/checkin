@@ -30,3 +30,21 @@ button:disabled{
 .subtitle {
   font-size: 18px !important;
 }
+
+.view-icon {
+  position: relative;
+  right: 0px;
+  top:-8px;
+  width: 24px;
+  height:5px;
+  font-size: 20px;
+}
+
+.link-icon {
+  position: relative;
+  right: 0px;
+  top:5px;
+  width: 24px;
+  height:5px;
+  font-size: 22px;
+}

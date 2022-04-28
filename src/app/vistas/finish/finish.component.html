@@ -17,8 +17,15 @@
         </mat-card-content>
       </div>
       <div class="row">
-        <mat-card-actions class="d-flex">
-          <button class="mx-auto" mat-raised-button (click)="downloadMyFile()">Ir al estudio</button>
+        <mat-card-actions class="d-grid">
+          <button class="mx-auto" mat-raised-button (click)="downloadMyFile()">
+            <mat-icon class="view-icon">visibility</mat-icon>
+            Ir al estudio
+          </button>
+          <button class="mt-2 mx-auto mat-focus-indicator mx-auto mat-raised-button mat-button-base" cdkCopyToClipboard="{{linkEstudios}}">
+            <mat-icon class="link-icon">link</mat-icon>
+            Copiar link
+          </button>
         </mat-card-actions>
       </div>
       <multiselect-autocomplete

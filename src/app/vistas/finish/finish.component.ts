@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ApiService } from "../../servicios/api/api.service";
 import { SendMailInterface } from "../../modelos/sendMail.interface";
+import { ClipboardModule } from '@angular/cdk/clipboard'
 
 @Component({
   selector: 'app-finish',
@@ -13,11 +14,15 @@ export class FinishComponent implements OnInit {
   constructor(private api:ApiService){ }
 
   ngOnInit(): void {
+    this.cardValue[0]=this.emailPaciente;
   }
 
   loading:boolean=false;
   linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
+  pacienteId: any = localStorage.getItem('pacienteId');
+  emailPaciente: any = localStorage.getItem('emailPaciente');
+  accession: any = localStorage.getItem('accession');
   postMail: SendMailInterface = {
     "pacienteId": "",
     "accession": "",
@@ -30,7 +35,6 @@ export class FinishComponent implements OnInit {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
     link.setAttribute('href', this.linkEstudios);
-    // link.setAttribute('download', `estudios.pdf`);
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -38,15 +42,13 @@ export class FinishComponent implements OnInit {
 
   sendMail(){
     this.postMail={
-      "pacienteId": "351066",
-      "accession": "9275000831455",
+      "pacienteId": this.pacienteId,
+      "accession": this.accession,
       "emails" : ["istefanini@fleni.org.ar","stefanini.ignacio@gmail.com"]
-  };
-    console.log(this.postMail);
+    };
     this.api.sendMail(this.postMail).subscribe(
       (data:any) =>{
       if(data){
-        console.log(data);
       } else {
         this.httpErrorMsg = data.msg;
         this.httpErrorType=data.status;
@@ -56,9 +58,6 @@ export class FinishComponent implements OnInit {
         this.loading=false;
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
-        console.log(this.httpErrorMsg);
-        console.log(this.httpErrorType);
-        console.log(error);
     })
   }
 
@@ -67,7 +66,7 @@ export class FinishComponent implements OnInit {
   };
 
   selectOptions: Array<string> = [
-    'stefanini.ignacio@gmail.com', 'istefanini@fleni.org', 'leovillar@gmail.com', 'lvillar@fleni.org', 'nachostefanini@yahoo.com'
+    this.emailPaciente,
   ];
 
   selectChange = (event: any) => {

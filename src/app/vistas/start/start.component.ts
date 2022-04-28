@@ -105,6 +105,7 @@ export class StartComponent implements OnInit {
     402: credencial erronea
 */
   loading:boolean=false;
+  pacienteExiste:boolean=false;
   public token:any="";
   accesoId = new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]);
   pacienteId = new FormControl('', [Validators.required]);
@@ -122,24 +123,14 @@ export class StartComponent implements OnInit {
   }
 
   getPacienteUrl(tokenUrl: string){
-    console.log("buscando paciente "+ tokenUrl);
     this.loading=true;
     this.api.getPacienteUrl(tokenUrl).subscribe(
       (data:PacienteInterface)=>{
-        this.paciente=data;
-        // this.startForm.patchValue({
-        //   pacienteId: this.paciente.pacienteId,
-        // });
         if(this.paciente && (this.httpErrorMsg!=402)){
-          this.options[0]=this.paciente.apyNom;
-          console.log(this.options);
-          // if(data.urlEstudios.length>0){
-          //   localStorage.setItem("estudios", data.urlEstudios);
-          //   this.router.navigate(['ris-link-send-mail']);
-          // }
+          this.paciente=data;
+          this.pacienteExiste=true;
         } else {
           this.httpErrorMsg = this.api.httpErrorMsg;
-          this.options[0]="No hay pacientes con ese Id";
         }
         this.loading=false;
       }, error => {
@@ -153,27 +144,32 @@ export class StartComponent implements OnInit {
     this.postPaciente.app='RIS';
     this.postPaciente.pacienteId=form.pacienteId.toString();
     this.postPaciente.id=form.accesoId.toString();
-    console.log(this.postPaciente);
-    this.api.sendCode(this.postPaciente).subscribe(
-      (data:any) =>{
-      if(data){
-        console.log(data);
-        localStorage.setItem("beneficiario",this.paciente.apyNom);
-        localStorage.setItem("estudios",data.urlStudy);
-        this.router.navigate(['ris-link-send-mail']);
-      } else {
-        this.httpErrorMsg = data.msg;
-        this.httpErrorType=data.status;
-      }
-        this.loading=false;
-    }, error =>{
-        this.loading=false;
-        this.httpErrorMsg=this.api.httpErrorMsg;
-        this.httpErrorType=this.api.httpErrorType;
-        console.log(this.httpErrorMsg);
-        console.log(this.httpErrorType);
-        console.log(error);
-    })
+    if (this.pacienteExiste){
+      console.log(this.postPaciente);
+      this.api.sendCode(this.postPaciente).subscribe(
+        (data:any) =>{
+        if(data){
+          localStorage.setItem("beneficiario",this.paciente.apyNom);
+          localStorage.setItem("emailPaciente", this.paciente.emailActivo);
+          localStorage.setItem("pacienteId", this.paciente.pacienteId.toString());
+          localStorage.setItem("accession", form.accesoId.toString());
+          localStorage.setItem("estudios",data.urlStudy);
+          this.router.navigate(['ris-link-send-mail']);
+        } else {
+          this.httpErrorMsg = data.msg;
+          this.httpErrorType=data.status;
+        }
+          this.loading=false;
+      }, error =>{
+          this.loading=false;
+          this.httpErrorMsg=this.api.httpErrorMsg;
+          this.httpErrorType=this.api.httpErrorType;
+      });
+    } else{
+      this.getPacienteUrl(form.pacienteId.toString());
+      this.pacienteExiste=true;
+      this.sendCode(form);
+    }
   }
 
   keyPressNumbers(event: any) {
@@ -186,5 +182,4 @@ export class StartComponent implements OnInit {
     }
   }
 
-  options: string[] = [];
 }

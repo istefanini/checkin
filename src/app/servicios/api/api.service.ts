@@ -10,12 +10,13 @@ import {environment} from "../../../environments/environment.api-mock";
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
 
-  public httpErrorMsg: string;
+  public httpErrorMsg: any;
   public httpErrorType: number;
   baseUrl = environment.baseUrl;
-  postUrl = "http://172.16.1.243:4010/api-middleware-link-ris/api/v1/link-studie-check";
+  // postUrl = "http://172.16.1.243:4010/api-middleware-link-ris/api/v1/link-studie-check";
   sendMailUrl = environment.sendMailUrl;
 
   constructor( private http:HttpClient) {

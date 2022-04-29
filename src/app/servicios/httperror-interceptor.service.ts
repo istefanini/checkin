@@ -27,7 +27,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
             this.apiService.httpErrorType=this.httpErrorType;
             return throwError(error);
           }
-          else if(error.status==401){
+          else if(error.status==500){
               this.httpErrorType =error.status;
               if(error.error.err){
                 this.httpErrorMsg = error.error.err;
@@ -36,10 +36,14 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
                 this.httpErrorMsg = error.error.msg;
               }
           }
-          else if(error.status==402){
-              this.httpErrorMsg = error.error.msg;
+          else if(error.status==404){
+              this.httpErrorMsg = error.error.error;
               this.httpErrorType =error.status;
           }
+          else if(error.status==400){
+            this.httpErrorMsg = error.error.error;
+            this.httpErrorType =error.status;
+        }
           this.apiService.httpErrorMsg=this.httpErrorMsg;
           this.apiService.httpErrorType=this.httpErrorType;
           const errorMessage = this.setError(error);

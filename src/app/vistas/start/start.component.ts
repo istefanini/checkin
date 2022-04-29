@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators} from "@angular/forms";
 import {PostPacienteInterface} from "../../modelos/postPacienteInterface";
 import {ApiService} from "../../servicios/api/api.service";
-import {ResponseInterface} from "../../modelos/response.interface";
 import {PacienteInterface} from "../../modelos/paciente.interface";
 import {ActivatedRoute} from "@angular/router";
 
@@ -102,15 +101,18 @@ export class StartComponent implements OnInit {
     1: error en la url o token invalido
     2: timeout error
     401: codigo de seguridad erroneo
-    402: credencial erronea
+    404: paciente no encontrado
+    500: paciente no encontrado
 */
   loading:boolean=false;
   pacienteExiste:boolean=false;
-  public token:any="";
   accesoId = new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]);
   pacienteId = new FormControl('', [Validators.required]);
 
   constructor(private api:ApiService, private router: Router, private route: ActivatedRoute){ }
+
+  ngOnInit(): void {
+  }
 
   getErrorMessage() {
     if (this.accesoId.hasError('required')) {
@@ -119,18 +121,19 @@ export class StartComponent implements OnInit {
     return '';
   }
 
-  ngOnInit(): void {
-  }
-
   getPacienteUrl(tokenUrl: string){
     this.loading=true;
     this.api.getPacienteUrl(tokenUrl).subscribe(
       (data:PacienteInterface)=>{
-        if(this.paciente && (this.httpErrorMsg!=402)){
+        this.paciente=data;
+        if(this.paciente && (this.httpErrorType!=500)){
           this.paciente=data;
           this.pacienteExiste=true;
         } else {
           this.httpErrorMsg = this.api.httpErrorMsg;
+          this.httpErrorType = this.api.httpErrorType;
+          console.log(this.httpErrorMsg);
+          console.log(this.httpErrorType);
         }
         this.loading=false;
       }, error => {

@@ -1,8 +1,8 @@
 version: '3'
 services:
-  front-simple-one-page:
-    container_name: front-simple-one-page
-    image: flenisistemas/front-simple-one-page:latest
+  front-ris-link-study:
+    container_name: front-ris-link-study
+    image: flenisistemas/front-ris-link-study:latest
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     build:

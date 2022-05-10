@@ -34,9 +34,14 @@
         [data]="selectOptions"
         (result)="selectChange($event)">
       </multiselect-autocomplete>
+    <div class="row" *ngIf="!loading && (httpErrorType==1)" >
+      <div class="alert alert-success text-center mx-auto">
+        <p>Mail enviado exitosamente</p>
+      </div>
+    </div>
     <div class="row">
       <mat-card-actions class="d-flex">
-        <button class="mx-auto" (click)="sendMail()" mat-raised-button>Enviar por mail</button>
+        <button [disabled]="(httpErrorType==1)" class="mx-auto" (click)="sendMail()" mat-raised-button>Enviar por mail</button>
       </mat-card-actions>
     </div>
     </div>

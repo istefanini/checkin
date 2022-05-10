@@ -1,10 +1,10 @@
+import { ItemData } from './../../modelos/multi-select-item-data';
 
+import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-​
-import { ItemData } from '../../modelos/multi-select-item-data';
 
 @Component({
   selector: 'multiselect-autocomplete',
@@ -26,6 +26,10 @@ export class MultiselectAutocompleteComponent implements OnInit {
   ​
   filteredData: Observable<Array<ItemData>>;
   filterString: string = '';
+  emailNuevo: ItemData = {
+    "item": "",
+    "selected": false,
+  }
 
   constructor() {
     this.filteredData = this.selectControl.valueChanges.pipe(

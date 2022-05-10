@@ -23,29 +23,25 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
           if(error instanceof TimeoutError){
             this.httpErrorMsg = "Error del servidor. Intente nuevamente en unos minutos...";
             this.apiService.httpErrorMsg=this.httpErrorMsg;
-            this.httpErrorType = 2;
-            this.apiService.httpErrorType=this.httpErrorType;
+            this.apiService.httpErrorType=error.status;
             return throwError(error);
           }
-          else if(error.status==500){
-              this.httpErrorType =error.status;
-              if(error.error.err){
-                this.httpErrorMsg = error.error.err;
-              }
-              else{
-                this.httpErrorMsg = error.error.msg;
-              }
+          else if((error.status==500) || (error.status==504)){
+              this.httpErrorType=error.status;
+              this.httpErrorMsg = "Error del servidor. Intente nuevamente en unos minutos...";
           }
-          else if(error.status==404){
-              this.httpErrorMsg = error.error.error;
-              this.httpErrorType =error.status;
-          }
-          else if(error.status==400){
-            this.httpErrorMsg = error.error.error;
+          else if(error.status==404||error.status==400){
             this.httpErrorType =error.status;
-        }
+            if(error.error.error){
+              this.httpErrorMsg=error.error.error
+            } else {
+              this.httpErrorMsg = error.error.err;
+            }
+          }
           this.apiService.httpErrorMsg=this.httpErrorMsg;
           this.apiService.httpErrorType=this.httpErrorType;
+          console.log("Error: " +this.httpErrorType +" "+ this.httpErrorMsg);
+          console.log("Apiservice Error: " +this.apiService.httpErrorType +" "+ this.apiService.httpErrorMsg);
           const errorMessage = this.setError(error);
           return throwError(errorMessage);
         })
@@ -53,7 +49,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
   }
 
   setError(error: HttpErrorResponse): string {
-    let errorMessage = 'Unknown error occured';
+    let errorMessage = 'Ocurrió un error desconocido';
     if(error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {

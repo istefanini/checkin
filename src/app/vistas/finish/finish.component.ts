@@ -30,6 +30,7 @@ export class FinishComponent implements OnInit {
   };
   httpErrorMsg:any="";
   httpErrorType:number=0;
+  // httpErrorType=1 --> significa que el mail se encoló correctamente;
 
   downloadMyFile(){
     const link = document.createElement('a');
@@ -44,11 +45,13 @@ export class FinishComponent implements OnInit {
     this.postMail={
       "pacienteId": this.pacienteId,
       "accession": this.accession,
-      "emails" : ["istefanini@fleni.org.ar","stefanini.ignacio@gmail.com"]
+      "emails" : [this.emailPaciente,"istefanini@fleni.org.ar"]
     };
     this.api.sendMail(this.postMail).subscribe(
       (data:any) =>{
       if(data){
+        this.httpErrorMsg=data.msg;
+        this.httpErrorType=1;
       } else {
         this.httpErrorMsg = data.msg;
         this.httpErrorType=data.status;

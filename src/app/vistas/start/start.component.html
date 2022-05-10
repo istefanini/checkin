@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card class="my-card mt-4 mb-4 mx-auto">
     <div class="col">
-      <div *ngIf="!loading && (httpErrorType!=1) && (httpErrorType!=2) && !(httpErrorType==0 && httpErrorMsg)">
+      <div *ngIf="!loading">
         <div class="row">
           <mat-card-title class="text-center">LINK A ESTUDIO RIS</mat-card-title>
           <hr>
@@ -39,7 +39,7 @@
           <mat-spinner class="mx-auto"></mat-spinner>
         </div>
       </div>
-      <div class="row" *ngIf="!loading && httpErrorMsg">
+      <div class="row" *ngIf="!loading && (httpErrorType!=0)">
         <div class="alert alert-danger text-center mx-auto">
           <p>{{httpErrorMsg}}</p>
         </div>

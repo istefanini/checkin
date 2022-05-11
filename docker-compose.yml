@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 4200:80
+      - 4300:80
     dns: 8.8.8.8
     dns_search: fleni.org.ar
     volumes:

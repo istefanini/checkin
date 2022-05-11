@@ -1,3 +1,5 @@
+import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar-popup.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ApiService } from "../../servicios/api/api.service";
 import { SendMailInterface } from "../../modelos/sendMail.interface";
@@ -11,7 +13,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard'
 
 export class FinishComponent implements OnInit {
 
-  constructor(private api:ApiService){ }
+  constructor(private api:ApiService, private snackbar: MatSnackBar){ }
 
   ngOnInit(): void {
     this.cardValue[0]=this.emailPaciente;
@@ -39,6 +41,13 @@ export class FinishComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  openSnackbar(message: string, action: string, duration: number, color: string): void{
+    this.snackbar.open(message, action, {
+      duration: duration,
+      panelClass: [color]
+    });
   }
 
   sendMail(){

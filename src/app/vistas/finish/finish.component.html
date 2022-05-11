@@ -22,7 +22,8 @@
             <mat-icon class="view-icon">visibility</mat-icon>
             Ir al estudio
           </button>
-          <button class="mt-2 mx-auto mat-focus-indicator mx-auto mat-raised-button mat-button-base" cdkCopyToClipboard="{{linkEstudios}}">
+          <button class="mt-2 mx-auto mat-focus-indicator mx-auto mat-raised-button mat-button-base" 
+          (click)="openSnackbar('Link copiado exitosamente', '', 3000, 'success-snackbar')" cdkCopyToClipboard="{{linkEstudios}}">
             <mat-icon class="link-icon">link</mat-icon>
             Copiar link
           </button>

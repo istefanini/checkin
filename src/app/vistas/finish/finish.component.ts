@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ApiService } from "../../servicios/api/api.service";
 import { SendMailInterface } from "../../modelos/sendMail.interface";
-import { ClipboardModule } from '@angular/cdk/clipboard'
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finish',
@@ -13,7 +14,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard'
 
 export class FinishComponent implements OnInit {
 
-  constructor(private api:ApiService, private snackbar: MatSnackBar){ }
+  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router){ }
 
   ngOnInit(): void {
     this.cardValue[0]=this.emailPaciente;
@@ -51,6 +52,7 @@ export class FinishComponent implements OnInit {
   }
 
   sendMail(){
+    this.loading=true;
     this.postMail={
       "pacienteId": this.pacienteId,
       "accession": this.accession,
@@ -71,6 +73,11 @@ export class FinishComponent implements OnInit {
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
     })
+  }
+
+  goBack(){
+    localStorage.clear();
+    this.router.navigate(['ris-link']);
   }
 
   cardValue: any = {

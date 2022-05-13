@@ -121,6 +121,16 @@ mat-form-field{
   font-size: 22px !important;
 }
 
+.go-back-button{
+  background: #e5e5e5;
+  color: #003865;
+}
+
+.go-back-button:hover{
+  background: #003865;
+  color:  #e5e5e5;
+}
+
 .search-icon {
   position: absolute;
   right: 0px;

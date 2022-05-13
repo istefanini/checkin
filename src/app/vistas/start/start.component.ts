@@ -209,19 +209,23 @@ export class StartComponent implements OnInit {
       });
   }
 
-  sendCode(form: any){
+  getPacienteUrlSync(tokenUrl: string):Promise<any>{
     this.loading=true;
-    this.getPacienteUrl(form.pacienteId.toString());
-    if((this.pacienteExiste) && (this.httpErrorType==0)){
+    return this.api.getPacienteUrl(tokenUrl).toPromise();
+  }
+
+  async sendCodeSync(form: any){
+    this.getPacienteUrlSync(form.pacienteId)
+    .then((paciente)=>{ if ((paciente!=null) && (paciente.pacienteId==form.pacienteId)) {
       this.postPaciente.app='RIS';
       this.postPaciente.pacienteId=form.pacienteId.toString();
       this.postPaciente.id=form.accesoId.toString();
         this.api.sendCode(this.postPaciente).subscribe(
           (data:any) =>{
             if(data){
-              localStorage.setItem("beneficiario",this.paciente.apyNom);
-              localStorage.setItem("emailPaciente", this.paciente.emailActivo);
-              localStorage.setItem("pacienteId", this.paciente.pacienteId.toString());
+              localStorage.setItem("beneficiario",paciente.apyNom);
+              localStorage.setItem("emailPaciente", paciente.emailActivo);
+              localStorage.setItem("pacienteId", paciente.pacienteId.toString());
               localStorage.setItem("accession", form.accesoId.toString());
               localStorage.setItem("estudios",data.urlStudy);
               this.router.navigate(['ris-link-send-mail']);
@@ -235,8 +239,40 @@ export class StartComponent implements OnInit {
               this.httpErrorType=this.api.httpErrorType;
               this.loading=false;
           });
-    }
+    };
+   this.loading=false;
+  }); 
+
   }
+
+  // sendCode(form: any){
+  //   this.loading=true;
+  //   this.getPacienteUrl(form.pacienteId.toString());
+  //   if((this.pacienteExiste) && (this.httpErrorType==0)){
+  //     this.postPaciente.app='RIS';
+  //     this.postPaciente.pacienteId=form.pacienteId.toString();
+  //     this.postPaciente.id=form.accesoId.toString();
+  //       this.api.sendCode(this.postPaciente).subscribe(
+  //         (data:any) =>{
+  //           if(data){
+  //             localStorage.setItem("beneficiario",this.paciente.apyNom);
+  //             localStorage.setItem("emailPaciente", this.paciente.emailActivo);
+  //             localStorage.setItem("pacienteId", this.paciente.pacienteId.toString());
+  //             localStorage.setItem("accession", form.accesoId.toString());
+  //             localStorage.setItem("estudios",data.urlStudy);
+  //             this.router.navigate(['ris-link-send-mail']);
+  //           } else {
+  //             this.httpErrorMsg = data.msg;
+  //             this.httpErrorType=data.status;
+  //           }
+  //             this.loading=false;
+  //         }, error =>{
+  //             this.httpErrorMsg=this.api.httpErrorMsg;
+  //             this.httpErrorType=this.api.httpErrorType;
+  //             this.loading=false;
+  //         });
+  //   }
+  // }
 
   keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;

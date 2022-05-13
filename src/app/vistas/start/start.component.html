@@ -14,7 +14,7 @@
         </div>
         <div class="row">
           <mat-card-content class="justify-content-center">
-            <form [formGroup]="startForm" (ngSubmit)="sendCode(startForm.value)" class="mx-auto align-content-center">
+            <form [formGroup]="startForm" (ngSubmit)="sendCodeSync(startForm.value)" class="mx-auto align-content-center">
               <mat-form-field class="d-block" appearance="fill">
                 <mat-label>Número de paciente</mat-label>
                 <input class="pacienteId" formControlName="pacienteId" matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="ej: 212234">
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
           <mat-card-actions class="d-flex">
-            <button [disabled]="!startForm.valid" mat-stroked-button type="submit" class="mx-auto" (click)="sendCode(startForm.value)">Validar</button>
+            <button [disabled]="!startForm.valid" mat-stroked-button type="submit" class="mx-auto" (click)="sendCodeSync(startForm.value)">Validar</button>
           </mat-card-actions>
         </div>
       </div>

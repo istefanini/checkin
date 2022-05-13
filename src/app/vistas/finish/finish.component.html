@@ -42,7 +42,14 @@
     </div>
     <div class="row">
       <mat-card-actions class="d-flex">
-        <button [disabled]="(httpErrorType==1)" class="mx-auto" (click)="sendMail()" mat-raised-button>Enviar por mail</button>
+        <button class="mx-auto" (click)="sendMail()" mat-raised-button>Enviar por mail</button>
+      </mat-card-actions>
+    </div>
+    <div class="row">
+      <mat-card-actions class="d-flex">
+        <button class="ms-auto go-back-button" (click)="goBack()" mat-raised-button>
+          <mat-icon class="keyboard_backspace">keyboard_backspace</mat-icon>
+        </button>
       </mat-card-actions>
     </div>
     </div>

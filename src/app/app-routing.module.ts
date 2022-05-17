@@ -4,10 +4,10 @@ import {StartComponent} from "./vistas/start/start.component";
 import {FinishComponent} from "./vistas/finish/finish.component"
 
 const routes: Routes = [
-  { path: '', redirectTo:'ris-link', pathMatch: 'full'},
-  { path: 'ris-link', component: StartComponent},
-  { path: 'ris-link/:token', component: StartComponent },
-  { path: 'ris-link-send-mail', component: FinishComponent },
+  { path: '', redirectTo:'check-in', pathMatch: 'full'},
+  { path: 'check-in', component: StartComponent},
+  { path: 'check-in/:token', component: StartComponent },
+  { path: 'check-in-send-mail', component: FinishComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 

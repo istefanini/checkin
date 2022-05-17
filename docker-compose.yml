@@ -1,8 +1,8 @@
 version: '3'
 services:
-  front-ris-link-study:
-    container_name: front-ris-link-study
-    image: flenisistemas/front-ris-link-study:latest
+  front-check-in-study:
+    container_name: front-check-in-study
+    image: flenisistemas/front-check-in-study:latest
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     build:

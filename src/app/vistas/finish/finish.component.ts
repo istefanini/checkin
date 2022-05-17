@@ -77,7 +77,7 @@ export class FinishComponent implements OnInit {
 
   goBack(){
     localStorage.clear();
-    this.router.navigate(['ris-link']);
+    this.router.navigate(['check-in']);
   }
 
   cardValue: any = {

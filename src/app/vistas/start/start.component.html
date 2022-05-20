@@ -3,34 +3,26 @@
     <div class="col">
       <div *ngIf="!loading">
         <div class="row">
-          <mat-card-title class="text-center">LINK A ESTUDIO RIS</mat-card-title>
+          <mat-card-title class="text-center">SELECCIONAR SEDE</mat-card-title>
           <hr>
-        </div>
-        <div class="row">
-          <mat-card-header class="justify-content-center">
-            <img mat-card-avatar src="../../../assets/apple-touch-icon.png" alt="Logo-fleni"/>
-            <mat-card-title class="subtitle align-text-center">{{this.paciente.apyNom}}</mat-card-title>
-          </mat-card-header>
         </div>
         <div class="row">
           <mat-card-content class="justify-content-center">
             <form [formGroup]="startForm" (ngSubmit)="sendCodeSync(startForm.value)" class="mx-auto align-content-center">
               <mat-form-field class="d-block" appearance="fill">
-                <mat-label>Número de paciente</mat-label>
-                <input class="pacienteId" formControlName="pacienteId" matInput type="text"  (keypress)="keyPressNumbers($event)" #pacienteId id="pacienteId" placeholder="ej: 212234">
-                <mat-icon (click)="getPacienteUrl(pacienteId.value)" class="search-icon">search</mat-icon>
-              </mat-form-field>
-              <mat-form-field class="d-block" hintLabel="código de 13 digitos" appearance="fill">
-                <mat-label>Número de acceso</mat-label>
-                <input formControlName="accesoId" matInput type="text"  (keypress)="keyPressNumbers($event)" #accesoId maxlength="13" minlength="13" id="accesoId" placeholder="ej: 9275000624077">
-                <mat-error *ngIf="accesoId.size!=13">{{getErrorMessage()}}</mat-error>
+                <mat-label>Sitios de check-in</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food">
+                    {{food}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </form>
           </mat-card-content>
         </div>
         <div class="row">
           <mat-card-actions class="d-flex">
-            <button [disabled]="!startForm.valid" mat-stroked-button type="submit" class="mx-auto" (click)="sendCodeSync(startForm.value)">Validar</button>
+            <button mat-stroked-button type="submit" class="mx-auto" (click)="gotoFinish()">Guardar</button>
           </mat-card-actions>
         </div>
       </div>

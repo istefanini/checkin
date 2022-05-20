@@ -5,6 +5,8 @@ import { ApiService } from "../../servicios/api/api.service";
 import { SendMailInterface } from "../../modelos/sendMail.interface";
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-finish',
@@ -14,10 +16,23 @@ import { Router } from '@angular/router';
 
 export class FinishComponent implements OnInit {
 
-  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router){ }
+  firstFormGroup: FormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup: FormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+
+  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private _formBuilder: FormBuilder){ }
 
   ngOnInit(): void {
-    this.cardValue[0]=this.emailPaciente;
+
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required],
+    });
   }
 
   loading:boolean=false;
@@ -92,4 +107,7 @@ export class FinishComponent implements OnInit {
     const key: string = event.key;
     this.cardValue[key] = [ ...event.data ];
   };
+
+  motivos: String[] = ['Ingreso a sacar turno','Ingreso de acompañante','Ingreso a solicitar informacion'];
+
 }

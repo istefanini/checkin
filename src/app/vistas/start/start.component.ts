@@ -254,4 +254,10 @@ export class StartComponent implements OnInit {
     }
   }
 
+  gotoFinish(){
+    this.router.navigate(['check-in-send-mail']);
+  }
+
+  foods: String[] = ['BEL-Montañeses','BEL-Olazabal 1561','BEL-Olazabal LABO','BEL-Olazabal Consultorios','ESC-Ruta 9','ESC-Entrada atras'];
+
 }

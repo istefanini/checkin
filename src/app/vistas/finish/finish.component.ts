@@ -5,7 +5,7 @@ import { ApiService } from "../../servicios/api/api.service";
 import { SendMailInterface } from "../../modelos/sendMail.interface";
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
@@ -16,25 +16,30 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 export class FinishComponent implements OnInit {
 
+  control: FormControl = new FormControl('');
+
   firstFormGroup: FormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
-  secondFormGroup: FormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  secondFormGroup = new FormGroup({
+    nombre:  new FormControl('', Validators.required),
   });
+  nombre = new FormControl('', [Validators.required]);
 
   constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private _formBuilder: FormBuilder){ }
 
   ngOnInit(): void {
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
-    this.checkinReasons=this.api.getCheckinReasons();
+    this.api.getCheckinReasons().subscribe(
+      (data:any) =>{
+        this.checkinReasons=data;
+        console.log(data);
+      }, error =>{
+        this.httpErrorMsg=this.api.httpErrorMsg;
+        this.httpErrorType=this.api.httpErrorType;
+        this.loading=false;
+      });
   }
+
   loading:boolean=false;
   linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
@@ -49,7 +54,7 @@ export class FinishComponent implements OnInit {
   httpErrorMsg:any="";
   httpErrorType:number=0;
   // httpErrorType=1 --> significa que el mail se encoló correctamente;
-  checkinReasons: any = ['Ingreso a sacar turno','Ingreso de acompañante','Ingreso a solicitar informacion'];
+  checkinReasons: any;
 
   downloadMyFile(){
     const link = document.createElement('a');
@@ -108,7 +113,5 @@ export class FinishComponent implements OnInit {
     const key: string = event.key;
     this.cardValue[key] = [ ...event.data ];
   };
-
-  motivos: String[] = ['Ingreso a sacar turno','Ingreso de acompañante','Ingreso a solicitar informacion'];
 
 }

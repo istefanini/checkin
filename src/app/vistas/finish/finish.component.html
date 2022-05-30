@@ -30,7 +30,7 @@
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Nombre completo</mat-label>
-                      <input matInput placeholder="Nombre completo">
+                      <input matInput placeholder="Nombre completo" formControlName="nombre" type="text" #nombre id="nombre" >
                     </mat-form-field>
                   </div>  
                   <div class="col-md-4">
@@ -71,7 +71,7 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Motivo de ingreso</mat-label>
                       <mat-select>
-                        <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                        <mat-option *ngFor="let motivo of checkinReasons" [value]="motivo">
                           {{motivo}}
                         </mat-option>
                       </mat-select>

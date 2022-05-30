@@ -107,12 +107,13 @@ export class StartComponent implements OnInit {
   pacienteExiste:boolean=false;
   accesoId = new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]);
   pacienteId = new FormControl('', [Validators.required]);
-  checkinSites: any = ['BEL-Montañeses','BEL-Olazabal 1561','BEL-Olazabal LABO','BEL-Olazabal Consultorios','ESC-Ruta 9','ESC-Entrada atras'];
+  checkinSites: any;
 
   constructor(private api:ApiService, private router: Router, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
     this.checkinSites=this.api.getCheckinSites();
+    console.log(this.checkinSites);
   }
 
   getErrorMessage() {
@@ -259,7 +260,5 @@ export class StartComponent implements OnInit {
   gotoFinish(){
     this.router.navigate(['check-in-send-mail']);
   }
-
-  sitios: String[] = ['BEL-Montañeses','BEL-Olazabal 1561','BEL-Olazabal LABO','BEL-Olazabal Consultorios','ESC-Ruta 9','ESC-Entrada atras'];
 
 }

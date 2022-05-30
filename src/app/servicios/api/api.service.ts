@@ -16,30 +16,32 @@ export class ApiService {
   public httpErrorMsg: any;
   public httpErrorType: number;
   baseUrl = environment.baseUrl;
-  sendMailUrl = environment.sendMailUrl;
-  ubicacionesUrl = "http://172.16.1.244:4001/facthos-core/api/v1/checkin-sites";
-  motivosIngresoUrl = "http://172.16.1.244:4001/facthos-core/api/v1/checkin-reason";
+  ubicacionesUrl = "-sites";
+  motivosIngresoUrl = "-reason";
+  busquedaDni = "-search?siteId=1"
+  busquedaQr = "-search?siteId=1"
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
     this.httpErrorType = 0;
   }
 
-  getPacienteUrl(pacienteId:string):Observable<PacienteInterface>{
-    let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
-    return this.http.get<PacienteInterface>(url);
-  }
+  // getPacienteUrl(pacienteId:string):Observable<PacienteInterface>{
+  //   let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
+  //   return this.http.get<PacienteInterface>(url);
+  // }
 
-  sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
-    return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
-  }
+  // sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
+  //   return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
+  // }
 
-  sendMail(sendMailInterface: SendMailInterface):Observable<any>{
-    return this.http.post<any>(this.sendMailUrl, sendMailInterface);
-  }
+  // sendMail(sendMailInterface: SendMailInterface):Observable<any>{
+  //   return this.http.post<any>(this.sendMailUrl, sendMailInterface);
+  // }
 
   getCheckinSites():Observable<any>{
-    let url:string= this.ubicacionesUrl;
+    let url:string= this.baseUrl+this.ubicacionesUrl;
+    console.log(url);
     return this.http.get<any>(url);
   }
 

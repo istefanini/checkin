@@ -26,10 +26,15 @@ button:disabled{
 }
 
 .mat-card{
+  font-family: 'Interstate', sans-serif !important;
   min-width: auto;
 }
 
 .subtitle {
   font-size: 18px !important;
   margin-top:8px;
+}
+
+.datepicker{
+  max-width:200px!important;
 }

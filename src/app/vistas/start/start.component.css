@@ -41,6 +41,7 @@ mat-form-field{
 }
 
 .mat-card{
+  font-family: 'Interstate', sans-serif !important;
   min-width: auto;
 }
 

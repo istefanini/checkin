@@ -10,7 +10,7 @@
           <mat-stepper #stepper>
             <mat-step [stepControl]="firstFormGroup">
               <form class="mt-3" [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Fill out your name</ng-template>
+                <ng-template matStepLabel>Ingrese su dni</ng-template>
                 <mat-form-field appearance="outline">
                   <mat-label>Ingresar QR o DNI</mat-label>
                   <input matInput placeholder="QR o DNI" formControlName="firstCtrl" required>
@@ -25,43 +25,60 @@
             <mat-step [stepControl]="secondFormGroup">
               <form class="mt-3" [formGroup]="secondFormGroup" class="mx-auto">
                 <ng-template matStepLabel>Formulario de ingreso</ng-template>
-                  <mat-form-field appearance="outline" class="mx-auto">
-                    <mat-label>Nombre completo</mat-label>
-                    <input matInput placeholder="Nombre completo">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Apellido</mat-label>
-                    <input matInput placeholder="Apellido">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <input matInput #DNI maxlength="8" placeholder="Ej. 12345678">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Fecha de nacimiento</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  <div class="row mt-3 mb-3">
-                    <label id="example-radio-group-label">Sexo de nacimiento</label>
+                
+                <div class="row justify-content-md-center">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Nombre completo</mat-label>
+                      <input matInput placeholder="Nombre completo">
+                    </mat-form-field>
+                  </div>  
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Apellido</mat-label>
+                      <input matInput placeholder="Apellido">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row justify-content-md-center">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Numero de DNI</mat-label>
+                      <input matInput #DNI maxlength="8" placeholder="Ej. 12345678">
+                    </mat-form-field>
+                  </div>  
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Fecha de nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" class="datePicker">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row justify-content-md-center">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <label id="example-radio-group-label">Sexo de nacimiento</label>
+                    </div>
                     <mat-radio-group aria-label="Select an option">
                       <mat-radio-button value="1">Masculino</mat-radio-button>
                       <mat-radio-button value="2">Femenino</mat-radio-button>
                     </mat-radio-group>
+                  </div>  
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Motivo de ingreso</mat-label>
+                      <mat-select>
+                        <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                          {{motivo}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Motivo</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let motivo of motivos" [value]="motivo">
-                        {{motivo}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                </div>
                 <div>
-                  <button mat-icon-button matStepperPrevious>
-                    <mat-icon>keyboard_arrow_left</mat-icon>
-                  </button>
                   <button mat-icon-button matStepperNext>
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
@@ -69,13 +86,13 @@
               </form>
             </mat-step>
             <mat-step>
-              <ng-template matStepLabel>Done</ng-template>
+              <ng-template matStepLabel>Recepción finalizada</ng-template>
               <p>Mensaje opcional</p>
               <hr>
               <h1>UD. TIENE EL SIGUIENTE TURNO</h1>
               <h3>PROFESIONAL: Dra/DR: RODRIGUEZ, OSCAR</h3>
               <h3>PRACTICA: CONSULTA MEDICA</h3>
-              <h3>CONSULTORIO: SIN LIMITE</h3>
+              <h3>CONSULTORIO: 3er piso - consultorio 317</h3>
               <div>
                 <button mat-icon-button matStepperPrevious>
                   <mat-icon>keyboard_arrow_left</mat-icon>

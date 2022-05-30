@@ -17,6 +17,8 @@ export class ApiService {
   public httpErrorType: number;
   baseUrl = environment.baseUrl;
   sendMailUrl = environment.sendMailUrl;
+  ubicacionesUrl = "http://172.16.1.244:4001/facthos-core/api/v1/checkin-sites";
+  motivosIngresoUrl = "http://172.16.1.244:4001/facthos-core/api/v1/checkin-reason";
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
@@ -34,6 +36,16 @@ export class ApiService {
 
   sendMail(sendMailInterface: SendMailInterface):Observable<any>{
     return this.http.post<any>(this.sendMailUrl, sendMailInterface);
+  }
+
+  getCheckinSites():Observable<any>{
+    let url:string= this.ubicacionesUrl;
+    return this.http.get<any>(url);
+  }
+
+  getCheckinReasons():Observable<any>{
+    let url:string= this.motivosIngresoUrl;
+    return this.http.get<any>(url);
   }
 
 }

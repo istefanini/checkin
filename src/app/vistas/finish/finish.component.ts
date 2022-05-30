@@ -33,8 +33,8 @@ export class FinishComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
+    this.checkinReasons=this.api.getCheckinReasons();
   }
-
   loading:boolean=false;
   linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
@@ -49,6 +49,7 @@ export class FinishComponent implements OnInit {
   httpErrorMsg:any="";
   httpErrorType:number=0;
   // httpErrorType=1 --> significa que el mail se encoló correctamente;
+  checkinReasons: any = ['Ingreso a sacar turno','Ingreso de acompañante','Ingreso a solicitar informacion'];
 
   downloadMyFile(){
     const link = document.createElement('a');

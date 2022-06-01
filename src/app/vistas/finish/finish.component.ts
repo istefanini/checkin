@@ -2,7 +2,6 @@ import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ApiService } from "../../servicios/api/api.service";
-import { SendMailInterface } from "../../modelos/sendMail.interface";
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
@@ -46,11 +45,6 @@ export class FinishComponent implements OnInit {
   pacienteId: any = localStorage.getItem('pacienteId');
   emailPaciente: any = localStorage.getItem('emailPaciente');
   accession: any = localStorage.getItem('accession');
-  postMail: SendMailInterface = {
-    "pacienteId": "",
-    "accession": "",
-    "emails": []
-  };
   httpErrorMsg:any="";
   httpErrorType:number=0;
   // httpErrorType=1 --> significa que el mail se encoló correctamente;
@@ -70,30 +64,6 @@ export class FinishComponent implements OnInit {
       duration: duration,
       panelClass: [color]
     });
-  }
-
-  sendMail(){
-    this.loading=true;
-    this.postMail={
-      "pacienteId": this.pacienteId,
-      "accession": this.accession,
-      "emails" : [this.emailPaciente,"istefanini@fleni.org.ar"]
-    };
-    this.api.sendMail(this.postMail).subscribe(
-      (data:any) =>{
-      if(data){
-        this.httpErrorMsg=data.msg;
-        this.httpErrorType=1;
-      } else {
-        this.httpErrorMsg = data.msg;
-        this.httpErrorType=data.status;
-      }
-        this.loading=false;
-    }, error =>{
-        this.loading=false;
-        this.httpErrorMsg=this.api.httpErrorMsg;
-        this.httpErrorType=this.api.httpErrorType;
-    })
   }
 
   goBack(){

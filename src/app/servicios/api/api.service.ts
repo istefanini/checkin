@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {PacienteInterface} from "../../modelos/paciente.interface";
 import {PostPacienteInterface} from "../../modelos/postPacienteInterface";
 import {ResponseInterface} from "../../modelos/response.interface";
-import {SendMailInterface} from "../../modelos/sendMail.interface";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../../environments/environment.api-mock";
@@ -20,7 +19,6 @@ export class ApiService {
   motivosIngresoUrl = "-reason";
   busquedaDni = "-search?siteId=1"
   busquedaQr = "-search?siteId=1"
-  sendMailUrl = environment.sendMailUrl;
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
@@ -34,10 +32,6 @@ export class ApiService {
 
   sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
     return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
-  }
-
-  sendMail(sendMailInterface: SendMailInterface):Observable<any>{
-    return this.http.post<any>(this.sendMailUrl, sendMailInterface);
   }
 
   getCheckinSites():Observable<any>{

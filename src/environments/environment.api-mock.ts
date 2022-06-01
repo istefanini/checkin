@@ -7,7 +7,6 @@ export const environment = {
   env: 'api-mock',
   baseUrl: 'http://172.16.1.244:4001/facthos-core/api/v1/checkin',
   postUrl: 'http://172.16.1.243:4010/api-middleware-link-ris/api/v1/link-studie-check',
-  sendMailUrl: 'http://172.16.1.244:4001/facthos-core/api/v1/send-ris-mail',
 };
 
 /*

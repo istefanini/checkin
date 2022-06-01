@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './plantillas/header/header.component';
-import { FooterComponent } from './plantillas/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -18,7 +17,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MultiselectAutocompleteComponent } from './plantillas/multiselect-autocomplete/multiselect-autocomplete.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-popup.component';
 
@@ -26,8 +24,6 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
-    MultiselectAutocompleteComponent,
     routingComponents,
     SnackbarPopupComponent,
   ],

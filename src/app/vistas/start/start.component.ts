@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators} from "@angular/forms";
@@ -109,11 +110,18 @@ export class StartComponent implements OnInit {
   pacienteId = new FormControl('', [Validators.required]);
   checkinSites: any;
 
-  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute){ }
+  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute, private http:HttpClient){ }
 
   ngOnInit(): void {
-    this.checkinSites=this.api.getCheckinSites();
-    console.log(this.checkinSites);
+    this.api.getCheckinSites().subscribe(
+      (data:any) =>{
+        this.checkinSites=data;
+        console.log(data);
+      }, error =>{
+        this.httpErrorMsg=this.api.httpErrorMsg;
+        this.httpErrorType=this.api.httpErrorType;
+        this.loading=false;
+      });
   }
 
   getErrorMessage() {
@@ -231,7 +239,7 @@ export class StartComponent implements OnInit {
               localStorage.setItem("pacienteId", paciente.pacienteId.toString());
               localStorage.setItem("accession", form.accesoId.toString());
               localStorage.setItem("estudios",data.urlStudy);
-              this.router.navigate(['check-in-send-mail']);
+              this.router.navigate(['check-in-formulario']);
             } else {
               this.httpErrorMsg = data.msg;
               this.httpErrorType=data.status;
@@ -258,7 +266,7 @@ export class StartComponent implements OnInit {
   }
 
   gotoFinish(){
-    this.router.navigate(['check-in-send-mail']);
+    this.router.navigate(['check-in-formulario']);
   }
 
 }

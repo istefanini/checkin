@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {StartComponent} from "./vistas/start/start.component";
-import {FinishComponent} from "./vistas/finish/finish.component"
+import {FinishComponent} from "./vistas/finish/finish.component";
 
 const routes: Routes = [
   { path: '', redirectTo:'check-in', pathMatch: 'full'},
   { path: 'check-in', component: StartComponent},
-  { path: 'check-in/:token', component: StartComponent },
-  { path: 'check-in-send-mail', component: FinishComponent },
+  { path: 'check-in-formulario', component: FinishComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 

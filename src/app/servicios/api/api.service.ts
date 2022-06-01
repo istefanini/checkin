@@ -20,24 +20,25 @@ export class ApiService {
   motivosIngresoUrl = "-reason";
   busquedaDni = "-search?siteId=1"
   busquedaQr = "-search?siteId=1"
+  sendMailUrl = environment.sendMailUrl;
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
     this.httpErrorType = 0;
   }
 
-  // getPacienteUrl(pacienteId:string):Observable<PacienteInterface>{
-  //   let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
-  //   return this.http.get<PacienteInterface>(url);
-  // }
+  getPacienteUrl(pacienteId:string):Observable<PacienteInterface>{
+    let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
+    return this.http.get<PacienteInterface>(url);
+  }
 
-  // sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
-  //   return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
-  // }
+  sendCode(postPaciente:PostPacienteInterface):Observable<ResponseInterface>{
+    return this.http.post<ResponseInterface>("/api-middleware-link-ris/api/v1/link-studie-check", postPaciente);
+  }
 
-  // sendMail(sendMailInterface: SendMailInterface):Observable<any>{
-  //   return this.http.post<any>(this.sendMailUrl, sendMailInterface);
-  // }
+  sendMail(sendMailInterface: SendMailInterface):Observable<any>{
+    return this.http.post<any>(this.sendMailUrl, sendMailInterface);
+  }
 
   getCheckinSites():Observable<any>{
     let url:string= this.baseUrl+this.ubicacionesUrl;

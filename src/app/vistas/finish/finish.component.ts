@@ -47,7 +47,6 @@ export class FinishComponent implements OnInit {
   accession: any = localStorage.getItem('accession');
   httpErrorMsg:any="";
   httpErrorType:number=0;
-  // httpErrorType=1 --> significa que el mail se encoló correctamente;
   checkinReasons: any;
 
   downloadMyFile(){

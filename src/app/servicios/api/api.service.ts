@@ -35,11 +35,13 @@ export class ApiService {
   }
 
   getCheckinSites():Observable<any>{
-    return this.http.get<any>("http://172.16.1.244:4001/facthos-core/api/v1/checkin-sites");
+    let url:string= this.baseUrl+this.ubicacionesUrl;
+    return this.http.get<any>(url);
   }
 
   getCheckinReasons():Observable<any>{
-    return this.http.get<any>("http://172.16.1.244:4001/facthos-core/api/v1/checkin-reason");
+    let url:string= this.baseUrl+this.motivosIngresoUrl;
+    return this.http.get<any>(url);
   }
 
 }

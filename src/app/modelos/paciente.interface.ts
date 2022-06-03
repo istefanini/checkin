@@ -11,5 +11,5 @@ export interface PacienteInterface {
   isPatient: boolean,
   reasonId: string,
   formInput: boolean,
-  msg: string,
+  error: string,
 }

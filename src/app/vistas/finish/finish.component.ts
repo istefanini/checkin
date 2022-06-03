@@ -1,4 +1,4 @@
-import { PacienteInterface } from './../../modelos/pacienteDNI.interface';
+import { PacienteInterface } from './../../modelos/paciente.interface';
 import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar-popup.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
@@ -33,7 +33,6 @@ export class FinishComponent implements OnInit {
     this.api.getCheckinReasons().subscribe(
       (data:any) =>{
         this.checkinReasons=data;
-        console.log(data);
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
@@ -67,17 +66,14 @@ export class FinishComponent implements OnInit {
   checkinReasons: any;
 
   getPaciente(pacienteId: string){
-    if (pacienteId.length<=8){
-      this.api.getPacienteDni(pacienteId).subscribe(
-        (data:any) =>{
-          this.paciente=data;
-          console.log(this.paciente);
-        }, error =>{
-          this.httpErrorMsg=this.api.httpErrorMsg;
-          this.httpErrorType=this.api.httpErrorType;
-          this.loading=false;
-        });
-    }
+    this.api.getPaciente(pacienteId).subscribe(
+      (data:any) =>{
+        this.paciente=data;
+      }, error =>{
+        this.httpErrorMsg=this.api.httpErrorMsg;
+        this.httpErrorType=this.api.httpErrorType;
+        this.loading=false;
+      });
   }
 
   openSnackbar(message: string, action: string, duration: number, color: string): void{
@@ -88,9 +84,7 @@ export class FinishComponent implements OnInit {
   }
 
   goBack(){
-    localStorage.clear();
     this.router.navigate(['check-in']);
   }
-
 
 }

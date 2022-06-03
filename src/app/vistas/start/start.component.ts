@@ -43,7 +43,7 @@ export class StartComponent implements OnInit {
   }
 
   removeCheckinSite(){
-    localStorage.clear;
+    localStorage.clear();
   }
 
 }

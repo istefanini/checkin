@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {PacienteInterface} from "../../modelos/paciente.interface";
-import {PostPacienteInterface} from "../../modelos/postPacienteInterface";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../../environments/environment.api-mock";

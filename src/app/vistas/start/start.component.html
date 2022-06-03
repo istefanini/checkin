@@ -8,12 +8,12 @@
         </div>
         <div class="row">
           <mat-card-content class="justify-content-center">
-            <form [formGroup]="startForm" class="mx-auto align-content-center">
+            <form [formGroup]="startForm" class="mx-auto align-content-center" (ngSubmit)="saveCheckinSite()">
               <mat-form-field class="d-block" appearance="outline">
                 <mat-label>Sitios de check-in</mat-label>
                 <mat-select>
-                  <mat-option *ngFor="let site of checkinSites" [value]="site">
-                    {{site.name}}
+                  <mat-option *ngFor="let checkinSite of checkinSites" [value]="checkinSite">
+                    {{checkinSite.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -22,7 +22,7 @@
         </div>
         <div class="row">
           <mat-card-actions class="d-flex">
-            <button mat-stroked-button type="submit" class="mx-auto" (click)="gotoFinish()">Guardar</button>
+            <button mat-stroked-button type="submit" class="mx-auto" (click)="saveCheckinSite()">Guardar</button>
           </mat-card-actions>
         </div>
       </div>
@@ -35,6 +35,13 @@
         <div class="alert alert-danger text-center mx-auto">
           <p>{{httpErrorMsg}}</p>
         </div>
+      </div>
+      <div class="row">
+        <mat-card-actions class="d-flex">
+          <button class="ms-auto go-back-button" (click)="removeCheckinSite()" mat-raised-button>
+            <mat-icon class="restore_from_trash">restore_from_trash</mat-icon>
+          </button>
+        </mat-card-actions>
       </div>
     </div>
   </mat-card>

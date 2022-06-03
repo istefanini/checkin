@@ -48,6 +48,16 @@ export class StartComponent implements OnInit {
     }
   }
 
+  saveCheckinSite(){
+    localStorage.setItem("siteId", "1");
+    localStorage.setItem("siteName", "BEL-Montañeses");
+    this.router.navigate(['check-in-formulario']);
+  }
+
+  removeCheckinSite(){
+    localStorage.clear;
+  }
+
   gotoFinish(){
     this.router.navigate(['check-in-formulario']);
   }

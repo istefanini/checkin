@@ -1,3 +1,4 @@
+import { PacienteInterface } from './../../modelos/pacienteDNI.interface';
 import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar-popup.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
@@ -17,13 +18,14 @@ export class FinishComponent implements OnInit {
 
   control: FormControl = new FormControl('');
 
-  firstFormGroup: FormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+  firstFormGroup = new FormGroup({
+    pacienteId:  new FormControl('', Validators.required),
   });
   secondFormGroup = new FormGroup({
     nombre:  new FormControl('', Validators.required),
   });
   nombre = new FormControl('', [Validators.required]);
+  pacienteId = new FormControl('', [Validators.required]);
 
   constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private _formBuilder: FormBuilder){ }
 
@@ -39,23 +41,43 @@ export class FinishComponent implements OnInit {
       });
   }
 
+  paciente: PacienteInterface = {
+    Identity: {
+        type: "",
+        number: 0,
+        lasName: "",
+        firsName: "",
+        birthdate: "",
+        sex: ""
+    },
+    appointments: [],
+    isPatient: true,
+    reasonId: "",
+    formInput: false,
+    error: "",
+  }
+
   loading:boolean=false;
   linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
-  pacienteId: any = localStorage.getItem('pacienteId');
   emailPaciente: any = localStorage.getItem('emailPaciente');
   accession: any = localStorage.getItem('accession');
   httpErrorMsg:any="";
   httpErrorType:number=0;
   checkinReasons: any;
 
-  downloadMyFile(){
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', this.linkEstudios);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+  getPaciente(pacienteId: string){
+    if (pacienteId.length<=8){
+      this.api.getPacienteDni(pacienteId).subscribe(
+        (data:any) =>{
+          this.paciente=data;
+          console.log(this.paciente);
+        }, error =>{
+          this.httpErrorMsg=this.api.httpErrorMsg;
+          this.httpErrorType=this.api.httpErrorType;
+          this.loading=false;
+        });
+    }
   }
 
   openSnackbar(message: string, action: string, duration: number, color: string): void{
@@ -70,17 +92,5 @@ export class FinishComponent implements OnInit {
     this.router.navigate(['check-in']);
   }
 
-  cardValue: any = {
-    options: []
-  };
-
-  selectOptions: Array<string> = [
-    this.emailPaciente,
-  ];
-
-  selectChange = (event: any) => {
-    const key: string = event.key;
-    this.cardValue[key] = [ ...event.data ];
-  };
 
 }

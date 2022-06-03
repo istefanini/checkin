@@ -17,8 +17,8 @@ export class ApiService {
   baseUrl = environment.baseUrl;
   ubicacionesUrl = "-sites";
   motivosIngresoUrl = "-reason";
-  busquedaDni = "-search?siteId=1"
-  busquedaQr = "-search?siteId=1"
+  busquedaDni = "-search?siteId="
+  busquedaQr = "-search?siteId="
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
@@ -26,6 +26,16 @@ export class ApiService {
   }
 
   getPacienteUrl(pacienteId:string):Observable<PacienteInterface>{
+    let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
+    return this.http.get<PacienteInterface>(url);
+  }
+
+  getPacienteDni(pacienteId:string):Observable<PacienteInterface>{
+    let url:string= this.baseUrl + this.busquedaDni + "1";
+    return this.http.post<PacienteInterface>(url, pacienteId);
+  }
+
+  getPacienteQr(pacienteId:string):Observable<PacienteInterface>{
     let url:string= this.baseUrl + "?pacienteId=" + pacienteId;
     return this.http.get<PacienteInterface>(url);
   }

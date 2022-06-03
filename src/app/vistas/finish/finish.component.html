@@ -9,14 +9,14 @@
         <mat-card-content class="text-center mt-3">
           <mat-stepper #stepper>
             <mat-step [stepControl]="firstFormGroup">
-              <form class="mt-3" [formGroup]="firstFormGroup">
+              <form class="mt-3" [formGroup]="firstFormGroup" (ngSubmit)="getPaciente(pacienteId.value)">
                 <ng-template matStepLabel>Ingrese su dni</ng-template>
                 <mat-form-field appearance="outline">
                   <mat-label>Ingresar QR o DNI</mat-label>
-                  <input matInput placeholder="QR o DNI" formControlName="firstCtrl" required>
+                  <input matInput placeholder="QR o DNI" formControlName="pacienteId" #pacienteId id="pacienteId" required>
                 </mat-form-field>
                 <div>
-                  <button mat-icon-button matStepperNext>
+                  <button mat-icon-button matStepperNext (click)="getPaciente(pacienteId.value)">
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>

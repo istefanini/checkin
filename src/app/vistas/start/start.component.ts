@@ -15,7 +15,6 @@ import {ActivatedRoute} from "@angular/router";
 
 export class StartComponent implements OnInit {
 
-  control: FormControl = new FormControl('');
   startForm = new FormGroup({
     accesoId: new FormControl('', Validators.required),
   })
@@ -30,22 +29,11 @@ export class StartComponent implements OnInit {
     this.api.getCheckinSites().subscribe(
       (data:any) =>{
         this.checkinSites=data;
-        console.log(data);
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
         this.loading=false;
       });
-  }
-
-  keyPressNumbers(event: any) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    if ((charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
   }
 
   saveCheckinSite(){
@@ -56,10 +44,6 @@ export class StartComponent implements OnInit {
 
   removeCheckinSite(){
     localStorage.clear;
-  }
-
-  gotoFinish(){
-    this.router.navigate(['check-in-formulario']);
   }
 
 }

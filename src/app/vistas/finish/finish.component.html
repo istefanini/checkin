@@ -87,16 +87,28 @@
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Recepción finalizada</ng-template>
-              <p>Mensaje opcional</p>
+                <mat-card class="appointment mx-auto">
+                  <mat-card-title-group class="text-center">
+                    <h2 class="text-center mx-auto">Ingreso registrado</h2>
+                  </mat-card-title-group>
+                  <mat-card-content>
+                    <h3>VILLAR, LEANDRO CESAR</h3>
+                    <h3>15:20:47 - 27/05/2022</h3>
+                    <h3>Ingreso a sacar turno</h3>
+                  </mat-card-content>
+                </mat-card>
               <hr>
-              <h1>UD. TIENE EL SIGUIENTE TURNO</h1>
-              <h3>PROFESIONAL: Dra/DR: RODRIGUEZ, OSCAR</h3>
-              <h3>PRACTICA: CONSULTA MEDICA</h3>
-              <h3>CONSULTORIO: 3er piso - consultorio 317</h3>
+                <mat-card class="appointment mx-auto">
+                  <mat-card-title-group class="text-center">
+                    <h2 class="text-center mx-auto">CONSULTA MEDICA</h2>
+                  </mat-card-title-group>
+                  <mat-card-content>
+                    <h3>Dra/Dr: DIEZ, BLANCA</h3>
+                    <h3>15:20:00 - 27/05/2022</h3>
+                    <h3>8vo Piso Consultorio 1 Clinica Médica</h3>
+                  </mat-card-content>
+                </mat-card>
               <div>
-                <button mat-icon-button matStepperPrevious>
-                  <mat-icon>keyboard_arrow_left</mat-icon>
-                </button>
                 <button mat-button (click)="stepper.reset()">
                   Finalizar
                 </button>

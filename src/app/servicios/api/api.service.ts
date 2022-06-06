@@ -15,7 +15,8 @@ export class ApiService {
   baseUrl = environment.baseUrl;
   ubicacionesUrl = "-sites";
   motivosIngresoUrl = "-reason";
-  busquedaDni = "-search?siteId="
+  busquedaDni = "-search?siteId=";
+  checkinSite:any="0";
 
   constructor( private http:HttpClient) {
     this.httpErrorMsg = "";
@@ -23,7 +24,8 @@ export class ApiService {
   }
 
   getPaciente(pacienteId:string):Observable<PacienteInterface>{
-    let url:string= this.baseUrl + this.busquedaDni + "1";
+    let url:string= this.baseUrl + this.busquedaDni + this.checkinSite;
+    console.log(url, pacienteId);
     return this.http.post<PacienteInterface>(url, pacienteId);
   }
 

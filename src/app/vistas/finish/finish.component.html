@@ -22,10 +22,9 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
+            <mat-step [stepControl]="secondFormGroup" *ngIf="paciente.formInput">
               <form class="mt-3" [formGroup]="secondFormGroup" class="mx-auto">
                 <ng-template matStepLabel>Formulario de ingreso</ng-template>
-                
                 <div class="row justify-content-md-center">
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">

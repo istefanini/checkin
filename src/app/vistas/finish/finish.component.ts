@@ -23,6 +23,11 @@ export class FinishComponent implements OnInit {
   });
   secondFormGroup = new FormGroup({
     nombre:  new FormControl('', Validators.required),
+    apellido:  new FormControl('', Validators.required),
+    dni:  new FormControl('', Validators.required),
+    nacimiento:  new FormControl('', Validators.required),
+    sexo:  new FormControl('', Validators.required),
+    checkinReason:  new FormControl('', Validators.required),
   });
   nombre = new FormControl('', [Validators.required]);
   pacienteId = new FormControl('', [Validators.required]);
@@ -33,6 +38,7 @@ export class FinishComponent implements OnInit {
     this.api.getCheckinReasons().subscribe(
       (data:any) =>{
         this.checkinReasons=data;
+        this.api.checkinSite = localStorage.getItem('siteId');
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
@@ -52,7 +58,7 @@ export class FinishComponent implements OnInit {
     appointments: [],
     isPatient: true,
     reasonId: "",
-    formInput: false,
+    formInput: true,
     error: "",
   }
 
@@ -69,6 +75,7 @@ export class FinishComponent implements OnInit {
     this.api.getPaciente(pacienteId).subscribe(
       (data:any) =>{
         this.paciente=data;
+        this.api.checkinSite = localStorage.getItem('siteId');
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;

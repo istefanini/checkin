@@ -23,19 +23,19 @@
               </form>
             </mat-step>
             <mat-step [stepControl]="secondFormGroup" *ngIf="paciente.formInput">
-              <form class="mt-3" [formGroup]="secondFormGroup" class="mx-auto">
+              <form class="mt-3" [formGroup]="pacienteForm" class="mx-auto">
                 <ng-template matStepLabel>Formulario de ingreso</ng-template>
                 <div class="row justify-content-md-center">
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Nombre completo</mat-label>
-                      <input matInput placeholder="Nombre completo" formControlName="nombre" type="text" #nombre id="nombre" >
+                      <input formControlName="nombre" matInput placeholder="Nombre completo" formControlName="nombre" type="text" #nombre id="nombre" >
                     </mat-form-field>
                   </div>  
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Apellido</mat-label>
-                      <input matInput placeholder="Apellido">
+                      <input formControlName="apellido" matInput placeholder="Apellido">
                     </mat-form-field>
                   </div>
                 </div>
@@ -43,13 +43,13 @@
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Numero de DNI</mat-label>
-                      <input matInput #DNI maxlength="8" placeholder="Ej. 12345678">
+                      <input formControlName="dni" matInput #DNI maxlength="8" placeholder="Ej. 12345678">
                     </mat-form-field>
                   </div>  
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Fecha de nacimiento</mat-label>
-                      <input matInput [matDatepicker]="picker" class="datePicker">
+                      <input matInput formControlName="nacimiento" [matDatepicker]="picker" class="datePicker">
                       <mat-hint>MM/DD/YYYY</mat-hint>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
@@ -61,15 +61,15 @@
                     <div class="row">
                       <label id="example-radio-group-label">Sexo de nacimiento</label>
                     </div>
-                    <mat-radio-group aria-label="Select an option">
-                      <mat-radio-button value="1">Masculino</mat-radio-button>
-                      <mat-radio-button value="2">Femenino</mat-radio-button>
+                    <mat-radio-group formControlName="sexo" aria-label="Select an option">
+                      <mat-radio-button value="M">Masculino</mat-radio-button>
+                      <mat-radio-button value="F">Femenino</mat-radio-button>
                     </mat-radio-group>
                   </div>  
                   <div class="col-md-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Motivo de ingreso</mat-label>
-                      <mat-select>
+                      <mat-select formControlName="checkinReason">
                         <mat-option *ngFor="let motivo of checkinReasons" [value]="motivo">
                           {{motivo.name}}
                         </mat-option>
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <div>
-                  <button mat-icon-button matStepperNext>
+                  <button (click)="registrarIngreso()" mat-icon-button matStepperNext>
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>
@@ -86,16 +86,18 @@
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Recepción finalizada</ng-template>
-                <mat-card class="appointment mx-auto">
-                  <mat-card-title-group class="text-center">
-                    <h2 class="text-center mx-auto">Ingreso registrado</h2>
-                  </mat-card-title-group>
-                  <mat-card-content>
-                    <h3>VILLAR, LEANDRO CESAR</h3>
-                    <h3>15:20:47 - 27/05/2022</h3>
-                    <h3>Ingreso a sacar turno</h3>
-                  </mat-card-content>
-                </mat-card>
+                <div *ngIf="this.registroExitoso">
+                  <mat-card class="appointment mx-auto">
+                    <mat-card-title-group class="text-center">
+                      <h2 class="text-center mx-auto">Ingreso registrado</h2>
+                    </mat-card-title-group>
+                    <mat-card-content>
+                      <h3>{{this.postPaciente.Identity.firsName}}, {{this.postPaciente.Identity.lasName}}</h3>
+                      <h3>{{this.theTime}}</h3>
+                      <h3>{{this.pacienteForm.value.checkinReason.name}}</h3>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
               <hr>
                 <mat-card class="appointment mx-auto">
                   <mat-card-title-group class="text-center">
@@ -108,7 +110,7 @@
                   </mat-card-content>
                 </mat-card>
               <div>
-                <button mat-button (click)="stepper.reset()">
+                <button class="mt-4" mat-button (click)="stepper.reset()">
                   Finalizar
                 </button>
               </div>

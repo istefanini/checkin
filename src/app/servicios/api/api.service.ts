@@ -1,3 +1,4 @@
+import { PostPacienteInterface } from './../../modelos/postPacienteInterface';
 import { Injectable } from '@angular/core';
 import {PacienteInterface} from "../../modelos/paciente.interface";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
@@ -37,6 +38,12 @@ export class ApiService {
   getCheckinReasons():Observable<any>{
     let url:string= this.baseUrl+this.motivosIngresoUrl;
     return this.http.get<any>(url);
+  }
+
+  postPaciente(postPaciente: PostPacienteInterface):Observable<any>{
+    let url:string= this.baseUrl;
+    console.log(url, postPaciente);
+    return this.http.post<any>(url, postPaciente);
   }
 
 }

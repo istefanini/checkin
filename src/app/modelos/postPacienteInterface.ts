@@ -1,5 +1,12 @@
 export interface PostPacienteInterface {
-  "app": string,
-  "id": string,
-  "pacienteId": string
+  Identity: {
+      type: string,
+      number: number,
+      lasName: string,
+      firsName: string,
+      birthdate: string,
+      sex: string
+  },
+  reasonId: string,
+  formInput: boolean,
 }

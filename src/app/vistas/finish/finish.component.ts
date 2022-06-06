@@ -1,3 +1,4 @@
+import { PostPacienteInterface } from './../../modelos/postPacienteInterface';
 import { PacienteInterface } from './../../modelos/paciente.interface';
 import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar-popup.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,8 +32,20 @@ export class FinishComponent implements OnInit {
   });
   nombre = new FormControl('', [Validators.required]);
   pacienteId = new FormControl('', [Validators.required]);
+  theTime: any;
 
-  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private _formBuilder: FormBuilder){ }
+  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private formBuilder: FormBuilder){ }
+
+  pacienteForm= this.formBuilder.group({
+    nombre: [''],
+    apellido: [''],
+    dni: [''],
+    nacimiento: [''],
+    sexo: [''],
+    checkinReason: [''],
+  })
+
+  registroExitoso: boolean = false;
 
   ngOnInit(): void {
     this.api.getCheckinReasons().subscribe(
@@ -62,6 +75,19 @@ export class FinishComponent implements OnInit {
     error: "",
   }
 
+  postPaciente: PostPacienteInterface = {
+      Identity: {
+        type: "DNI",
+        number: 0,
+        lasName: "",
+        firsName: "",
+        birthdate: "",
+        sex: ""
+    },
+    reasonId: "",
+    formInput: true,
+  }
+
   loading:boolean=false;
   linkEstudios:any=localStorage.getItem('estudios');
   beneficiario: any = localStorage.getItem('beneficiario');
@@ -88,6 +114,32 @@ export class FinishComponent implements OnInit {
       duration: duration,
       panelClass: [color]
     });
+  }
+
+  registrarIngreso(){
+    console.log(this.pacienteForm.value);
+    this.postPaciente={
+      Identity: {
+        type: "DNI",
+        number: this.pacienteForm.value.dni,
+        lasName: this.pacienteForm.value.apellido,
+        firsName: this.pacienteForm.value.nombre,
+        birthdate: this.pacienteForm.value.nacimiento,
+        sex: this.pacienteForm.value.sexo
+    },
+    reasonId: this.pacienteForm.value.checkinReason.id,
+    formInput: true,
+    };
+    this.api.postPaciente(this.postPaciente).subscribe(
+      (data:any) =>{
+        console.log(data);
+        this.theTime= new Date().toLocaleString();
+        this.registroExitoso=true;
+      }, error =>{
+        this.httpErrorMsg=this.api.httpErrorMsg;
+        this.httpErrorType=this.api.httpErrorType;
+        this.loading=false;
+      });
   }
 
   goBack(){

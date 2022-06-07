@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators} from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import {PostPacienteInterface} from "../../modelos/postPacienteInterface";
 import {ApiService} from "../../servicios/api/api.service";
 import {PacienteInterface} from "../../modelos/paciente.interface";
@@ -23,7 +23,11 @@ export class StartComponent implements OnInit {
   loading:boolean=false;
   checkinSites: any;
 
-  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute){ }
+  sitesForm= this.formBuilder.group({
+    accesoId: [''],
+  })
+
+  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder){ }
 
   ngOnInit(): void {
     this.api.getCheckinSites().subscribe(
@@ -37,8 +41,8 @@ export class StartComponent implements OnInit {
   }
 
   saveCheckinSite(){
-    localStorage.setItem("siteId", "1");
-    localStorage.setItem("siteName", "BEL-Montañeses");
+    localStorage.setItem("siteId", this.sitesForm.value.accesoId.siteId);
+    localStorage.setItem("siteName", this.sitesForm.value.accesoId.name);
     this.router.navigate(['check-in-formulario']);
   }
 

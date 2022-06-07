@@ -8,12 +8,12 @@
         </div>
         <div class="row">
           <mat-card-content class="justify-content-center">
-            <form [formGroup]="startForm" class="mx-auto align-content-center" (ngSubmit)="saveCheckinSite()">
+            <form [formGroup]="sitesForm" class="mx-auto align-content-center" (ngSubmit)="saveCheckinSite()">
               <mat-form-field class="d-block" appearance="outline">
                 <mat-label>Sitios de check-in</mat-label>
-                <mat-select>
+                <mat-select formControlName="accesoId">
                   <mat-option *ngFor="let checkinSite of checkinSites" [value]="checkinSite">
-                    {{checkinSite.name}}
+                    {{checkinSite.siteId}} - {{checkinSite.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

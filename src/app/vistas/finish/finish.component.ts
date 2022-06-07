@@ -1,3 +1,4 @@
+import { TurnoInterface } from './../../modelos/turno.interface';
 import { PostPacienteInterface } from './../../modelos/postPacienteInterface';
 import { PacienteInterface } from './../../modelos/paciente.interface';
 import { SnackbarPopupComponent } from '../../plantillas/snackbar-popup/snackbar-popup.component';
@@ -7,7 +8,7 @@ import { ApiService } from "../../servicios/api/api.service";
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-finish',
@@ -17,25 +18,9 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 export class FinishComponent implements OnInit {
 
-  control: FormControl = new FormControl('');
-
-  firstFormGroup = new FormGroup({
-    pacienteId:  new FormControl('', Validators.required),
-  });
-  secondFormGroup = new FormGroup({
-    nombre:  new FormControl('', Validators.required),
-    apellido:  new FormControl('', Validators.required),
-    dni:  new FormControl('', Validators.required),
-    nacimiento:  new FormControl('', Validators.required),
-    sexo:  new FormControl('', Validators.required),
-    checkinReason:  new FormControl('', Validators.required),
-  });
-  nombre = new FormControl('', [Validators.required]);
-  pacienteId = new FormControl('', [Validators.required]);
-  theTime: any;
-
-  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private formBuilder: FormBuilder){ }
-
+  identificationForm= this.formBuilder.group({
+    pacienteId: [''],
+  })
   pacienteForm= this.formBuilder.group({
     nombre: [''],
     apellido: [''],
@@ -44,21 +29,14 @@ export class FinishComponent implements OnInit {
     sexo: [''],
     checkinReason: [''],
   })
-
-  registroExitoso: boolean = false;
-
-  ngOnInit(): void {
-    this.api.getCheckinReasons().subscribe(
-      (data:any) =>{
-        this.checkinReasons=data;
-        this.api.checkinSite = localStorage.getItem('siteId');
-      }, error =>{
-        this.httpErrorMsg=this.api.httpErrorMsg;
-        this.httpErrorType=this.api.httpErrorType;
-        this.loading=false;
-      });
+  turno: any ={
+      id: 0,
+      resource: "",
+      practice: "",
+      fromDateTime: "",
+      toDateTime: "",
+      consultingRoom: ""
   }
-
   paciente: PacienteInterface = {
     Identity: {
         type: "",
@@ -74,7 +52,6 @@ export class FinishComponent implements OnInit {
     formInput: true,
     error: "",
   }
-
   postPaciente: PostPacienteInterface = {
       Identity: {
         type: "DNI",
@@ -87,20 +64,35 @@ export class FinishComponent implements OnInit {
     reasonId: "",
     formInput: true,
   }
-
+  theTime: any;
   loading:boolean=false;
-  linkEstudios:any=localStorage.getItem('estudios');
-  beneficiario: any = localStorage.getItem('beneficiario');
-  emailPaciente: any = localStorage.getItem('emailPaciente');
-  accession: any = localStorage.getItem('accession');
   httpErrorMsg:any="";
   httpErrorType:number=0;
   checkinReasons: any;
+  registroExitoso: boolean = false;
+
+  constructor(private api:ApiService, private snackbar: MatSnackBar, private router: Router,private formBuilder: FormBuilder){ }
+
+  ngOnInit(): void {
+    this.api.getCheckinReasons().subscribe(
+      (data:any) =>{
+        this.checkinReasons=data;
+        this.api.checkinSite = localStorage.getItem('siteId');
+      }, error =>{
+        this.httpErrorMsg=this.api.httpErrorMsg;
+        this.httpErrorType=this.api.httpErrorType;
+        this.loading=false;
+      });
+  }
 
   getPaciente(pacienteId: string){
     this.api.getPaciente(pacienteId).subscribe(
       (data:any) =>{
         this.paciente=data;
+        if(this.paciente.appointments){
+          this.turno=this.paciente.appointments;
+          this.turno=this.turno[0];
+        }
         this.api.checkinSite = localStorage.getItem('siteId');
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
@@ -140,6 +132,43 @@ export class FinishComponent implements OnInit {
         this.httpErrorType=this.api.httpErrorType;
         this.loading=false;
       });
+  }
+
+  resetAll(){
+    this.identificationForm.reset;
+    this.pacienteForm.reset;
+    this.paciente= {
+      Identity: {
+          type: "",
+          number: 0,
+          lasName: "",
+          firsName: "",
+          birthdate: "",
+          sex: ""
+      },
+      appointments: [],
+      isPatient: true,
+      reasonId: "",
+      formInput: true,
+      error: "",
+    }
+    this.postPaciente= {
+      Identity: {
+        type: "DNI",
+        number: 0,
+        lasName: "",
+        firsName: "",
+        birthdate: "",
+        sex: ""
+    },
+    reasonId: "",
+    formInput: true,
+  }
+    this.theTime=null;
+    this.loading=false; 
+    this.httpErrorMsg="";
+    this.httpErrorType=0;
+    this.registroExitoso= false;
   }
 
   goBack(){

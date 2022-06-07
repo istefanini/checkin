@@ -8,8 +8,8 @@
       <div class="row">
         <mat-card-content class="text-center mt-3">
           <mat-stepper #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <form class="mt-3" [formGroup]="firstFormGroup" (ngSubmit)="getPaciente(pacienteId.value)">
+            <mat-step [stepControl]="identificationForm">
+              <form class="mt-3" [formGroup]="identificationForm" (ngSubmit)="getPaciente(pacienteId.value)">
                 <ng-template matStepLabel>Ingrese su dni</ng-template>
                 <mat-form-field appearance="outline">
                   <mat-label>Ingresar QR o DNI</mat-label>
@@ -22,7 +22,7 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup" *ngIf="paciente.formInput">
+            <mat-step [stepControl]="pacienteForm" *ngIf="paciente.formInput">
               <form class="mt-3" [formGroup]="pacienteForm" class="mx-auto">
                 <ng-template matStepLabel>Formulario de ingreso</ng-template>
                 <div class="row justify-content-md-center">
@@ -86,6 +86,7 @@
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Recepción finalizada</ng-template>
+<!-- ingreso sin turno previo -->
                 <div *ngIf="this.registroExitoso">
                   <mat-card class="appointment mx-auto">
                     <mat-card-title-group class="text-center">
@@ -98,19 +99,21 @@
                     </mat-card-content>
                   </mat-card>
                 </div>
-              <hr>
+<!-- turno ya registrado -->
+              <div *ngIf="!this.registroExitoso">
                 <mat-card class="appointment mx-auto">
                   <mat-card-title-group class="text-center">
-                    <h2 class="text-center mx-auto">CONSULTA MEDICA</h2>
+                    <h2 class="text-center mx-auto">{{this.turno.practice}}</h2>
                   </mat-card-title-group>
                   <mat-card-content>
-                    <h3>Dra/Dr: DIEZ, BLANCA</h3>
-                    <h3>15:20:00 - 27/05/2022</h3>
-                    <h3>8vo Piso Consultorio 1 Clinica Médica</h3>
+                    <h3>{{this.turno.resource}}</h3>
+                    <h3>{{this.turno.fromDateTime}}, {{this.turno.toDateTime}}</h3>
+                    <h3>{{this.turno.consultingRoom}}</h3>
                   </mat-card-content>
                 </mat-card>
+              </div>
               <div>
-                <button class="mt-4" mat-button (click)="stepper.reset()">
+                <button class="mt-4" mat-button (click)="resetAll(); stepper.reset()">
                   Finalizar
                 </button>
               </div>

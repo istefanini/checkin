@@ -1,4 +1,4 @@
-export interface TrunoInterface {
+export interface TurnoInterface {
     id: number,
     resource: string,
     practice: string,

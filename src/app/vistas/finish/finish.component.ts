@@ -22,12 +22,12 @@ export class FinishComponent implements OnInit {
     pacienteId: [''],
   })
   pacienteForm= this.formBuilder.group({
-    nombre: [''],
-    apellido: [''],
-    dni: [''],
-    nacimiento: [''],
-    sexo: [''],
-    checkinReason: [''],
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
+    dni: ['', Validators.required],
+    nacimiento: ['', Validators.required],
+    sexo: ['', Validators.required],
+    checkinReason: ['', Validators.required],
   })
   turno: any ={
       id: 0,

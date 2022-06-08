@@ -1,4 +1,4 @@
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -58,6 +58,10 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi:true
+    },
+    { 
+      provide: MAT_DATE_LOCALE,
+       useValue: 'en-GB' 
     }
   ],
   bootstrap: [AppComponent],

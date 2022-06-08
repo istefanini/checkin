@@ -95,12 +95,12 @@
                     <mat-card-content>
                       <h3>{{this.postPaciente.Identity.firsName}}, {{this.postPaciente.Identity.lasName}}</h3>
                       <h3>{{this.theTime}}</h3>
-                      <h3>{{this.pacienteForm.value.checkinReason.name}}</h3>
+                      <!-- <h3>{{this.pacienteForm.value.checkinReason.name}}</h3> -->
                     </mat-card-content>
                   </mat-card>
                 </div>
 <!-- turno ya registrado -->
-              <div *ngIf="!this.registroExitoso && (this.turno)">
+              <div *ngIf="this.turno">
                 <mat-card class="appointment mx-auto">
                   <mat-card-title-group class="text-center">
                     <h2 class="text-center mx-auto">{{this.turno.practice}}</h2>

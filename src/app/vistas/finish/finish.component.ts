@@ -92,7 +92,7 @@ export class FinishComponent implements OnInit {
         this.pacienteForm.controls?.['nombre'].setValue(data.Identity.firsName);
         this.pacienteForm.controls?.['apellido'].setValue(data.Identity.lasName);
         this.pacienteForm.controls?.['dni'].setValue(data.Identity.number);
-        this.pacienteForm.controls?.['nacimiento'].setValue(data.Identity.birthdate);
+        // this.pacienteForm.controls?.['nacimiento'].setValue(data.Identity.birthdate);
         this.pacienteForm.controls?.['sexo'].setValue(data.Identity.sex);
         if(this.paciente.appointments){
           this.turno=this.paciente.appointments;

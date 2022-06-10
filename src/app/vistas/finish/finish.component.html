@@ -16,9 +16,8 @@
                   <input matInput placeholder="QR o DNI" formControlName="pacienteId" #pacienteId id="pacienteId" required>
                 </mat-form-field>
                 <div>
-                  <button mat-icon-button matStepperNext (click)="getPaciente(pacienteId.value)">
-                    continuar
-                    <mat-icon>keyboard_arrow_right</mat-icon>
+                  <button mat-raised-button matStepperNext (click)="getPaciente(pacienteId.value)">
+                    continuar<mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>
               </form>
@@ -79,9 +78,8 @@
                   </div>
                 </div>
                 <div>
-                  <button (click)="registrarIngreso()" type="submit" [disabled]="!pacienteForm.valid" mat-icon-button matStepperNext >
-                    continuar
-                    <mat-icon>keyboard_arrow_right</mat-icon>
+                  <button (click)="registrarIngreso()" type="submit" [disabled]="!pacienteForm.valid" mat-raised-button matStepperNext >
+                    continuar<mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>
               </form>

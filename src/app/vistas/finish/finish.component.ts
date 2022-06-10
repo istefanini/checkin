@@ -182,8 +182,8 @@ export class FinishComponent implements OnInit {
 
   }
 
-  goBack(){
-    this.router.navigate(['check-in']);
-  }
+  // goBack(){
+  //   this.router.navigate(['check-in']);
+  // }
 
 }

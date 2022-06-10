@@ -46,8 +46,8 @@ export class StartComponent implements OnInit {
     this.router.navigate(['check-in-formulario']);
   }
 
-  removeCheckinSite(){
-    localStorage.clear();
-  }
+  // removeCheckinSite(){
+  //   localStorage.clear();
+  // }
 
 }

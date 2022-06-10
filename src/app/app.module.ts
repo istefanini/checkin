@@ -61,7 +61,7 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
     },
     { 
       provide: MAT_DATE_LOCALE,
-       useValue: 'en-GB' 
+       useValue: 'es-ES' 
     }
   ],
   bootstrap: [AppComponent],

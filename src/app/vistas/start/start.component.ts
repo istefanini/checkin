@@ -24,7 +24,7 @@ export class StartComponent implements OnInit {
   checkinSites: any;
 
   sitesForm= this.formBuilder.group({
-    accesoId: [''],
+    accesoId: ['', Validators.required],
   })
 
   constructor(private api:ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder){ }

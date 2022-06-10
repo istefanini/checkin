@@ -92,8 +92,11 @@ export class FinishComponent implements OnInit {
         this.pacienteForm.controls?.['nombre'].setValue(data.Identity.firsName);
         this.pacienteForm.controls?.['apellido'].setValue(data.Identity.lasName);
         this.pacienteForm.controls?.['dni'].setValue(data.Identity.number);
-        this.pacienteForm.controls?.['nacimiento'].setValue(data.Identity.birthdate);
-        console.log(data.Identity.birthdate);
+        var dateString= data.Identity.birthdate;
+        var dateParts = dateString.split("/");
+        // month is 0-based, that's why we need dataParts[1] - 1
+        var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+        this.pacienteForm.controls?.['nacimiento'].setValue(dateObject);
         this.pacienteForm.controls?.['sexo'].setValue(data.Identity.sex);
         if(this.paciente.appointments){
           this.turno=this.paciente.appointments;

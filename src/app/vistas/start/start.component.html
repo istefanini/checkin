@@ -22,7 +22,7 @@
         </div>
         <div class="row">
           <mat-card-actions class="d-flex">
-            <button mat-stroked-button type="submit" class="mx-auto" (click)="saveCheckinSite()">Guardar</button>
+            <button mat-stroked-button type="submit" class="mx-auto" (click)="saveCheckinSite()" [disabled]="!sitesForm.valid">Guardar</button>
           </mat-card-actions>
         </div>
       </div>

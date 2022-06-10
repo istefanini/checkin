@@ -112,7 +112,7 @@
                   </mat-card-content>
                 </mat-card>
               </div>
-              <div *ngIf="!this.turno">
+              <div *ngIf="(!this.turno) && (this.paciente.formInput==false)">
                 <mat-card class="appointment mx-auto mt-3">
                   <mat-card-title-group class="text-center">
                     <h2 class="text-center mx-auto">Ingreso registrado</h2>

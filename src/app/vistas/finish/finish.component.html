@@ -16,7 +16,7 @@
                   <input matInput placeholder="QR o DNI" formControlName="pacienteId" #pacienteId id="pacienteId" required>
                 </mat-form-field>
                 <div>
-                  <button mat-raised-button matStepperNext (click)="getPaciente(pacienteId.value)">
+                  <button mat-raised-button matStepperNext (click)="getPaciente(pacienteId.value)" [disabled]="!identificationForm.valid">
                     continuar<mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>

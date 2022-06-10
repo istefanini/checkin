@@ -6,9 +6,11 @@
 }
 
 button {
-  color: #003865;
+  color: #e5e5e5;
+  background:  #003865;
 }
 button:hover{
+  color:  #003865;
   background: #e5e5e5;
 }
 button:disabled{
@@ -41,4 +43,10 @@ button:disabled{
 
 .appointment{
   max-width: 500px;
+  -webkit-box-shadow: 8px 8px 30px -2px rgba(0,0,0,0.42); 
+  box-shadow: 8px 8px 30px -2px rgba(0,0,0,0.42);
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
 }

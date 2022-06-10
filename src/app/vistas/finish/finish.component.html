@@ -17,12 +17,13 @@
                 </mat-form-field>
                 <div>
                   <button mat-icon-button matStepperNext (click)="getPaciente(pacienteId.value)">
+                    continuar
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="pacienteForm" *ngIf="paciente.formInput" [editable]="false">
+            <mat-step [stepControl]="pacienteForm" *ngIf="(paciente.formInput) || (paciente.appointments.length<1)" [editable]="false">
               <form class="mt-3" [formGroup]="pacienteForm" class="mx-auto">
                 <ng-template matStepLabel>Formulario de ingreso</ng-template>
                 <div class="row justify-content-md-center">
@@ -79,6 +80,7 @@
                 </div>
                 <div>
                   <button (click)="registrarIngreso()" type="submit" [disabled]="!pacienteForm.valid" mat-icon-button matStepperNext >
+                    continuar
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
                 </div>
@@ -88,7 +90,7 @@
               <ng-template matStepLabel>Recepción finalizada</ng-template>
 <!-- ingreso sin turno previo -->
                 <div *ngIf="this.registroExitoso">
-                  <mat-card class="appointment mx-auto">
+                  <mat-card class="appointment mx-auto mt-3">
                     <mat-card-title-group class="text-center">
                       <h2 class="text-center mx-auto">Ingreso registrado</h2>
                     </mat-card-title-group>
@@ -101,7 +103,7 @@
                 </div>
 <!-- turno ya registrado -->
               <div *ngIf="this.turno">
-                <mat-card class="appointment mx-auto">
+                <mat-card class="appointment mx-auto mt-3">
                   <mat-card-title-group class="text-center">
                     <h2 class="text-center mx-auto">{{this.turno.practice}}</h2>
                   </mat-card-title-group>

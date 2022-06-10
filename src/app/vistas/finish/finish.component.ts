@@ -169,11 +169,13 @@ export class FinishComponent implements OnInit {
     reasonId: "",
     formInput: true,
   }
+    this.pacienteForm.reset;
     this.theTime=null;
     this.loading=false; 
     this.httpErrorMsg="";
     this.httpErrorType=0;
     this.registroExitoso= false;
+
   }
 
   goBack(){

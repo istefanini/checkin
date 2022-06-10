@@ -28,9 +28,9 @@ body {
   background-color: #003865;
 }
 
-.mat-icon-button .mat-icon{
+/* .mat-icon-button .mat-icon{
   font-size: 50px !important;
-}
+} */
 
 .mat-step-header .mat-step-label.mat-step-label-active{
   font-size: 20px !important;

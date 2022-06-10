@@ -50,7 +50,7 @@ export class FinishComponent implements OnInit {
     isPatient: true,
     reasonId: "",
     formInput: true,
-    error: "",
+    msg: "",
   }
   postPaciente: PostPacienteInterface = {
       Identity: {
@@ -155,7 +155,7 @@ export class FinishComponent implements OnInit {
       isPatient: true,
       reasonId: "",
       formInput: true,
-      error: "",
+      msg: "",
     }
     this.postPaciente= {
       Identity: {

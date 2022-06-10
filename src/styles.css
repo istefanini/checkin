@@ -62,3 +62,7 @@ input.mat-input-element {
   
   .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: #003865 !important; /*outer ring color change*/  }
+
+  .mat-step-icon-state-done{
+    background-color: #4CAF50 !important;
+  }

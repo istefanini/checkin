@@ -8,6 +8,7 @@
 button {
   color: #e5e5e5;
   background:  #003865;
+  font-size: 18px !important;
 }
 button:hover{
   color:  #003865;

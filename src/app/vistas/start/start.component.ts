@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import {PostPacienteInterface} from "../../modelos/postPacienteInterface";
 import {ApiService} from "../../servicios/api/api.service";
@@ -27,7 +28,7 @@ export class StartComponent implements OnInit {
     accesoId: ['', Validators.required],
   })
 
-  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder){ }
+  constructor(private api:ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private snackbar: MatSnackBar){ }
 
   ngOnInit(): void {
     this.api.getCheckinSites().subscribe(
@@ -43,7 +44,15 @@ export class StartComponent implements OnInit {
   saveCheckinSite(){
     localStorage.setItem("siteId", this.sitesForm.value.accesoId.siteId);
     localStorage.setItem("siteName", this.sitesForm.value.accesoId.name);
+    this.openSnackbar('Sitio guardado exitosamente', '', 5000, 'success-snackbar');
     this.router.navigate(['check-in-formulario']);
+  }
+
+  openSnackbar(message: string, action: string, duration: number, color: string): void{
+    this.snackbar.open(message, action, {
+      duration: duration,
+      panelClass: [color]
+    });
   }
 
   // removeCheckinSite(){

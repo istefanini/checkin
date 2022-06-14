@@ -88,6 +88,17 @@ export class FinishComponent implements OnInit {
   getPaciente(pacienteId: string){
     this.api.getPaciente(pacienteId).subscribe(
       (data:any) =>{
+        switch (data.msg) {
+          case '':
+            if(data.isPatient==true){
+              this.openSnackbar('paciente existente', '', 3000, 'success-snackbar');
+            }
+            break;
+          case 'No existe el paciente con la identificación ingresada.':
+            this.openSnackbar(data.msg, '', 3000, 'red');
+            break;
+          default:
+        }
         this.paciente=data;
         this.pacienteForm.controls?.['nombre'].setValue(data.Identity.firsName);
         this.pacienteForm.controls?.['apellido'].setValue(data.Identity.lasName);
@@ -118,7 +129,6 @@ export class FinishComponent implements OnInit {
   }
 
   registrarIngreso(){
-    console.log(this.pacienteForm.value);
     this.postPaciente={
       Identity: {
         type: "DNI",
@@ -133,9 +143,9 @@ export class FinishComponent implements OnInit {
     };
     this.api.postPaciente(this.postPaciente).subscribe(
       (data:any) =>{
-        console.log(data);
         this.theTime= new Date().toLocaleString();
         this.registroExitoso=true;
+        this.openSnackbar(data.msg, '', 4000, 'success-snackbar');
       }, error =>{
         this.httpErrorMsg=this.api.httpErrorMsg;
         this.httpErrorType=this.api.httpErrorType;
@@ -179,7 +189,7 @@ export class FinishComponent implements OnInit {
     this.httpErrorMsg="";
     this.httpErrorType=0;
     this.registroExitoso= false;
-
+    this.openSnackbar('Reinicio de formulario', '', 2000, 'success-snackbar');
   }
 
   // goBack(){

@@ -26,7 +26,6 @@ export class ApiService {
 
   getPaciente(pacienteId:string):Observable<PacienteInterface>{
     let url:string= this.baseUrl + this.busquedaDni + this.checkinSite;
-    console.log(url, pacienteId);
     return this.http.post<PacienteInterface>(url, pacienteId);
   }
 
@@ -42,7 +41,6 @@ export class ApiService {
 
   postPaciente(postPaciente: PostPacienteInterface):Observable<any>{
     let url:string= this.baseUrl;
-    console.log(url, postPaciente);
     return this.http.post<any>(url, postPaciente);
   }
 

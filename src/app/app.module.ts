@@ -26,13 +26,14 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
 import { MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
 import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { LoginComponent } from './vistas/login/login.component';
+import { environment } from '../environments/environment.api-mock';
 
 export function MSALInstanceFactory(): IPublicClientApplication{
   return new PublicClientApplication({
     auth:{
-        clientId: '10fa89b3-ed10-4bcb-a4e1-593769a7014f',
-        redirectUri: 'http://localhost:4200/check-in',
-        postLogoutRedirectUri: "http://localhost:4200",
+        clientId: environment.clientId,
+        redirectUri: environment.redirectUri,
+        postLogoutRedirectUri: environment.postLogoutRedirectUri,
         navigateToLoginRequestUrl: true,
     }
   })

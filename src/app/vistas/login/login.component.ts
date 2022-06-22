@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   redirect(): void {
     if (this.isLoggedIn()){
       console.log(this.isLoggedIn());
-      this.router.navigate(['/ris-link']);
+      this.router.navigate(['/check-in']);
     }
   }
 

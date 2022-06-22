@@ -6,7 +6,7 @@ import {StartComponent} from "./vistas/start/start.component";
 import {FinishComponent} from "./vistas/finish/finish.component";
 
 const routes: Routes = [
-  { path: '', redirectTo:'check-in', pathMatch: 'full'},
+  { path: '', redirectTo:'login', pathMatch: 'full'},
   { path: '', component: LoginComponent},
   { path: 'login', component: LoginComponent},
   { path: 'check-in', component: StartComponent, canActivate: [MaslGuard]},

@@ -1,0 +1,14 @@
+.sign-in-button{
+    background: #e5e5e5;
+    color: #003865;
+  }
+  
+  .sign-in-button:hover{
+    background: #003865;
+    color:  #e5e5e5;
+  }
+
+  .mat-card{
+    min-width: auto;
+    max-width: 400px;
+  }

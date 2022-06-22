@@ -1,3 +1,5 @@
+import { MaslGuard } from './masl.guard';
+import { LoginComponent } from './vistas/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {StartComponent} from "./vistas/start/start.component";
@@ -5,9 +7,11 @@ import {FinishComponent} from "./vistas/finish/finish.component";
 
 const routes: Routes = [
   { path: '', redirectTo:'check-in', pathMatch: 'full'},
-  { path: 'check-in', component: StartComponent},
-  { path: 'check-in-formulario', component: FinishComponent },
-  { path: '**', redirectTo: '/', pathMatch: 'full' }
+  { path: '', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'check-in', component: StartComponent, canActivate: [MaslGuard]},
+  { path: 'check-in-formulario', component: FinishComponent, canActivate: [MaslGuard] },
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,29 @@
+<div class="container">
+    <mat-card class="my-card mt-4 mb-4 mx-auto">
+      <div class="col">
+          <div class="row">
+            <mat-card-title class="text-center">INICIO DE SESIÓN</mat-card-title>
+            <hr>
+          </div>
+          <div class="row">
+            <mat-card-header class="justify-content-center">
+              <img mat-card-avatar src="../../../assets/apple-touch-icon.png" alt="Logo-fleni"/>
+              <mat-card-title class="subtitle align-text-center">
+                <div *ngIf="isLoggedIn()">
+                  Usted está logueado
+                </div>
+                <div *ngIf="!isLoggedIn()">
+                  Usted NO está logueado
+                </div>
+              </mat-card-title>
+            </mat-card-header>
+          </div>
+          <div class="row">
+            <mat-card-actions class="d-flex">
+              <button mat-flat-button class="mx-auto sign-in-button" button (click)="redirect()" *ngIf="isLoggedIn()">Ris link</button>
+              <button mat-flat-button class="mx-auto sign-in-button" button (click)="login()" *ngIf="!isLoggedIn()">Sign in</button>
+            </mat-card-actions>
+          </div>
+      </div>
+    </mat-card>
+  </div>

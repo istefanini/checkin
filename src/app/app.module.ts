@@ -23,6 +23,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-popup.component';
+import { MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
+import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { LoginComponent } from './vistas/login/login.component';
+
+export function MSALInstanceFactory(): IPublicClientApplication{
+  return new PublicClientApplication({
+    auth:{
+        clientId: '10fa89b3-ed10-4bcb-a4e1-593769a7014f',
+        redirectUri: 'http://localhost:4200/chek-in',
+        postLogoutRedirectUri: "http://localhost:4200",
+        navigateToLoginRequestUrl: true,
+    }
+  })
+}
 
 @NgModule({
   declarations: [
@@ -30,6 +44,7 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
     HeaderComponent,
     routingComponents,
     SnackbarPopupComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +66,8 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
     MatSelectModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MsalModule
   ],
   providers: [
     {
@@ -62,7 +78,12 @@ import { SnackbarPopupComponent } from './plantillas/snackbar-popup/snackbar-pop
     { 
       provide: MAT_DATE_LOCALE,
        useValue: 'es-ES' 
-    }
+    },
+    {
+      provide: MSAL_INSTANCE,
+      useFactory: MSALInstanceFactory
+    },
+    MsalService
   ],
   bootstrap: [AppComponent],
 })
